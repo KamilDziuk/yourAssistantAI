@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Your assistant AI 🤖</title>
+<link rel="stylesheet" type="text/css" href="assistant.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+
+</head>
+<body>
+
+
+  <!-- light Reflections start-->
+  <div class="lightReflectionsContainer">
+    <div class="lightReflections"></div>
+    <div class="lightReflections" style="--delay:-12s;--size:0.35;--speed:20s;"></div>
+    <div class="lightReflections" style="--delay:-10s;--size:0.3;--speed:10s;"></div>
+  </div>
+  <!-- light Reflections end-->
+<!-- main button (open assistant window)-->
+<button class="assistantButton">Your assistant AI<i class="fa-regular fa-comments"></i></button>
+
+
+<!-- assistant window-->
+<div class="assistantWindow">
+<div id="headerText" >Your assistant AI<i class="fa-solid fa-comment-dots"></i></div>
+
+<div id="responseBox">
+
+ <!-- quick question -->
+<p class="quickStart">What specific technologies were used to create this assistant?</p>
+
+  <!-- ask user -->
+<p id="question"></p>
+
+<!-- response form OpenAI -->
+<div id="responseText"></div>
+
+<!-- loading answers -->
+<div id="loadingReplies"></div>
+</div>
+
+ <!-- items to send a question -->
+<div class="communicationContener">
+
+<!-- ask input data -->
+<input id="askInputData" placeholder="Enter your message..."required>
+<!-- send inquiry button -->
+<button class="sendAsk"><i class="fa-solid fa-paper-plane"></i></button>
+
+</div>
+
+</div>
+
+ <!-- close chat button in mobile version -->
+<button class="closeWindowPopupMobile">X</button>
+
+<!-- close chat button -->
+<div class="closeWindowAssistant"><i class="fa-solid fa-circle-chevron-down"></i></div>
+<script type="module" src="./main.js"></script>
+</body>
+</html>
