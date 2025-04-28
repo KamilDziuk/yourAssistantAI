@@ -159,6 +159,9 @@ border: none;
   padding:10px;
   margin:5px
   }
+  #askInputData:hover {
+  box-shadow:0 4px 8px #0000004d;
+  }
 
   input {
   all:unset;
