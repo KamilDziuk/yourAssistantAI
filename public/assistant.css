@@ -339,6 +339,11 @@ animation:muveAvatar 1s;
   margin-bottom:5px;
   }
 
+  #askInputData {
+  padding:5px;
+  margin:5px
+  }
+
   .closeWindowPopupMobile {
   position:fixed;
   background-color:#0000;
