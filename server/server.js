@@ -18,6 +18,10 @@ let app = express();
 app.use(cors()); //allows access to API from domains (origins) other than the one on which the server is running
 app.use(express.json()); //Automatically parses JSON data sent in the request body
 
+//convert file url to absolute path
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // endpoint POST in /ask
 app.post('/ask', async (req, res) => {
 
