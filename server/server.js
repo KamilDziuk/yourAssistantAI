@@ -22,6 +22,13 @@ app.use(express.json()); //Automatically parses JSON data sent in the request bo
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+//sharing a public folder as a source for static files
+app.use(
+express.static(
+path.join(_dirname, '..', 'public') // path to ../public folder relative to current file
+)
+);
+
 // endpoint POST in /ask
 app.post('/ask', async (req, res) => {
 
