@@ -5,7 +5,8 @@ import fetch from 'node-fetch'
 import dotenv from 'dotenv'
 import { MongoClient } from 'mongodb';
 import {createParser} from 'eventsource-parser'
-
+import path from 'path'
+import {fileURLToPath} from 'url'
 
 
 // loading environment variables
