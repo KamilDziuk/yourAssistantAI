@@ -4,6 +4,25 @@ const loadingReplies = document.getElementById('loadingReplies');
 const faCommentDots  = document.querySelector('.fa-comment-dots');
 const quickStart  = document.querySelector('.quickStart');
 
+//hide classy sendAsk style after limit
+function clickLimit(){
+clickCounter ++;
+if(clickCounter == 4)
+{
+sendAsk.style.display = "none";
+document.getElementById('askInputData').placeholder = "Request limit reached, please wait a moment";
+document.getElementById('askInputData').classList.add('askInputDataLimit');
+
+setTimeout(()=> {
+clickCounter = 1;
+sendAsk.style.display = "block";
+document.getElementById('askInputData').placeholder = "Enter your message...";
+document.getElementById('askInputData').classList.remove('askInputDataLimit');
+ },40000)
+}
+};
+
+
 faCommentDots.style.transition = "1.3s";
 // send component behavior
 function sendComponentBehavior() {
@@ -145,6 +164,7 @@ sendingAndReadingQueriesForAssistant();
 });
 
 sendAsk.addEventListener('click',  () =>{
+clickLimit();
 quickStart.style.display = "none"
 sendingAndReadingQueriesForAssistant();
 });
@@ -191,7 +211,6 @@ assistantWindow.style.display= "none";
 closeWindowAssistant.style.display= "none";
 })
 };
-
 clickBehavior();
 
 
