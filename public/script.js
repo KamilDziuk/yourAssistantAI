@@ -4,6 +4,15 @@ const loadingReplies = document.getElementById('loadingReplies');
 const faCommentDots  = document.querySelector('.fa-comment-dots');
 const quickStart  = document.querySelector('.quickStart');
 
+// scroll tracking (responseBox id)
+function scrollTracking() {
+const responseBox = document.getElementById('responseBox');
+const scrollTrackingInterval = setInterval(() => {
+clearInterval(scrollTrackingInterval);
+responseBox.scrollTop = responseBox.scrollHeight
+},1000)
+};
+
 //hide classy sendAsk style after limit
 function clickLimit(){
 clickCounter ++;
@@ -21,7 +30,6 @@ document.getElementById('askInputData').classList.remove('askInputDataLimit');
  },40000)
 }
 };
-
 
 faCommentDots.style.transition = "1.3s";
 // send component behavior
@@ -57,7 +65,7 @@ faCommentDots.style ="--fa-animation-duration: 2s;";
 // send component behavior
 sendComponentBehavior()
 export async function sendingAndReadingQueriesForAssistant() {
-
+scrollTracking();
   loadingReplies.innerHTML = `<i class=" loadingAnimation fa-solid fa-spinner"></i>`;
   loadingReplies.style = "margin-top: -52px; margin-left:10px; padding: 4px;   display:block;   position: absolute; z-index:999;"
 let  loadingAnimation = document.querySelector('.loadingAnimation');
@@ -79,23 +87,11 @@ afterSendingQueryToSystem();
 
 // send component behavior
 sendComponentBehavior();
-
-
-
-
-
+ 
  // if askInputData value is empty display default text
 responseText.innerHTML += `<div id="question"> ${askInputData} <i class="avatar fa-solid fa-user"></i></div>
 <i class="avatar fa-solid fa-robot"></i>`;
-
-// scroll tracking (responseBox id)
-function scrollTracking() {
-const responseBox = document.getElementById('responseBox');
-responseBox.scrollTop = responseBox.scrollHeight;
-
-};
-scrollTracking();
-
+ 
 //saving the user's query in memory
 systemHistoryTable.push( askInputData)
 
@@ -131,8 +127,9 @@ const decoder = new TextDecoder();
            if(content !== '[DONE]'  )
 {
 //if the OpenAI response ends with [DONE] then display it and change the behavior of the sending component
-  responseText.innerHTML += content.replace('[DONE]');
-
+responseText.innerHTML += content.replace('[DONE]');
+scrollTracking()
+ 
  // after the system response
   function  afterSystemResponse() {
   loadingReplies.style.display = "none";
