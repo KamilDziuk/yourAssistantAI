@@ -186,6 +186,17 @@ margin-top: -7px;
 
   }
 
+.askInputDataLimit::-webkit-input-placeholder
+{
+color: red;
+}
+.askInputDataLimit
+{
+  pointer-events: none;
+}
+
+
+
 /* response box */
   #responseBox {
   background-color:#fff;
