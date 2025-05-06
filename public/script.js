@@ -39,6 +39,8 @@ cookie = document.cookie = 'askLimit=blockade;max-age=40;path=/';
 blockade();
 setTimeout(()=> {
 clickCounter = 1;
+//changing cookie validity (deleting)
+cookie = document.cookie = 'askLimit=unlock;max-age=0;path=/';
 unlock();
  },40000)
 }
