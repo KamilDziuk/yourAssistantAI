@@ -3,6 +3,8 @@ const sendAsk  = document.querySelector('.sendAsk');
 const loadingReplies = document.getElementById('loadingReplies');
 const faCommentDots  = document.querySelector('.fa-comment-dots');
 const quickStart  = document.querySelector('.quickStart');
+// declaring a cookie variable
+let cookie = document.cookie;
 
 // scroll tracking (responseBox id)
 function scrollTracking() {
