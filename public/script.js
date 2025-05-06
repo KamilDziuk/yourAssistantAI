@@ -42,6 +42,31 @@ unlock();
 }
 };
 
+//maintaining the form state after reloading thanks to cookies
+function behaviorAfterReload() {
+const checkingCookieValue = setInterval(() =>{
+
+if(cookie === "askLimit=blockade" )
+{
+blockade()
+
+setTimeout(()=> {
+
+//changing the cookie value and deleting it
+cookie = document.cookie = 'askLimit=unlock;max-age=0;path=/';
+},10000)
+};
+
+if(cookie === "askLimit=unlock;max-age=0;path=/")
+{
+cookie = document.cookie = 'askLimit=unlock;max-age=0;path=/';
+unlock();
+clearInterval(checkingCookieValue);
+}
+},1);
+}
+behaviorAfterReload();
+
 faCommentDots.style.transition = "1.3s";
 // send component behavior
 function sendComponentBehavior() {
