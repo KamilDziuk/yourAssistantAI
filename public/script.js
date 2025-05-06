@@ -34,12 +34,10 @@ function clickLimit(){
 clickCounter ++;
 if(clickCounter == 4)
 {
-blockade()
+blockade();
 setTimeout(()=> {
 clickCounter = 1;
-sendAsk.style.display = "block";
-document.getElementById('askInputData').placeholder = "Enter your message...";
-document.getElementById('askInputData').classList.remove('askInputDataLimit');
+unlock();
  },40000)
 }
 };
