@@ -13,6 +13,13 @@ document.getElementById('askInputData').placeholder = "Request limit reached, pl
 document.getElementById('askInputData').classList.add('askInputDataLimit');
 }
 
+//function shows the button and restores the input functions and styles
+function unlock() {
+sendAsk.style.display = "block";
+document.getElementById('askInputData').placeholder = "Enter your message...";
+document.getElementById('askInputData').classList.remove('askInputDataLimit');
+}
+
 // scroll tracking (responseBox id)
 function scrollTracking() {
 const responseBox = document.getElementById('responseBox');
