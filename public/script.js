@@ -34,10 +34,7 @@ function clickLimit(){
 clickCounter ++;
 if(clickCounter == 4)
 {
-sendAsk.style.display = "none";
-document.getElementById('askInputData').placeholder = "Request limit reached, please wait a moment";
-document.getElementById('askInputData').classList.add('askInputDataLimit');
-
+blockade()
 setTimeout(()=> {
 clickCounter = 1;
 sendAsk.style.display = "block";
