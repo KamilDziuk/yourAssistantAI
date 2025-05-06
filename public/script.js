@@ -6,6 +6,13 @@ const quickStart  = document.querySelector('.quickStart');
 // declaring a cookie variable
 let cookie = document.cookie;
 
+// function hide button and change input style and block writing in it
+function blockade() {
+sendAsk.style.display = "none";
+document.getElementById('askInputData').placeholder = "Request limit reached, please wait a moment";
+document.getElementById('askInputData').classList.add('askInputDataLimit');
+}
+
 // scroll tracking (responseBox id)
 function scrollTracking() {
 const responseBox = document.getElementById('responseBox');
