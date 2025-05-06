@@ -34,6 +34,8 @@ function clickLimit(){
 clickCounter ++;
 if(clickCounter == 4)
 {
+// create cookie
+cookie = document.cookie = 'askLimit=blockade;max-age=40;path=/';
 blockade();
 setTimeout(()=> {
 clickCounter = 1;
