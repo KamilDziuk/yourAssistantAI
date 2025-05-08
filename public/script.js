@@ -2,7 +2,7 @@ const systemHistoryTable = [];
 const sendAsk  = document.querySelector('.sendAsk');
 const loadingReplies = document.getElementById('loadingReplies');
 const faCommentDots  = document.querySelector('.fa-comment-dots');
-const quickStart  = document.querySelector('.quickStart');
+const firstQuestion  = document.querySelector('.firstQuestion');
 // declaring a cookie variable
 let cookie = document.cookie;
 
@@ -194,15 +194,15 @@ console.error(e);
 };
 
 // quick question
-quickStart.addEventListener('click',()=>{
+firstQuestion.addEventListener('click',()=>{
 document.getElementById('askInputData').value = "What specific technologies were used to create this assistant?";
-quickStart.style.display = "none";
+firstQuestion.style.display = "none";
 sendingAndReadingQueriesForAssistant();
 });
 
 sendAsk.addEventListener('click',  () =>{
 clickLimit();
-quickStart.style.display = "none"
+firstQuestion.style.display = "none"
 sendingAndReadingQueriesForAssistant();
 });
 // behavior of buttons and assistant window after click
