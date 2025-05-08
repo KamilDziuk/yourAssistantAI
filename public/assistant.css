@@ -231,7 +231,7 @@ color: red;
   }
 
 /* quick question */
-  .quickStart
+  .firstQuestion
   {
     transition:1.3s;
     margin: 10px;
@@ -242,7 +242,7 @@ color: red;
 text-align: center;
   }
 
-  .quickStart:hover
+  .firstQuestion:hover
   {
 
     background-color:#8c8c8c;
