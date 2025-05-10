@@ -198,6 +198,7 @@ console.error(e);
 firstQuestion.addEventListener('click',()=>{
 document.getElementById('askInputData').value = "What specific technologies were used to create this assistant?";
 firstQuestion.style.display = "none";
+secondQuestion.style.display = "none";
 sendingAndReadingQueriesForAssistant();
 });
 
