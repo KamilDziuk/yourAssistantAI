@@ -231,7 +231,7 @@ color: red;
   }
 
 /* quick question */
-  .firstQuestion
+  .firstQuestion, .secondQuestion
   {
     transition:1.3s;
     margin: 10px;
@@ -242,7 +242,7 @@ color: red;
 text-align: center;
   }
 
-  .firstQuestion:hover
+  .firstQuestion:hover, .secondQuestion:hover
   {
 
     background-color:#8c8c8c;
