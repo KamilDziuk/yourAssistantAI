@@ -3,6 +3,7 @@ const sendAsk  = document.querySelector('.sendAsk');
 const loadingReplies = document.getElementById('loadingReplies');
 const faCommentDots  = document.querySelector('.fa-comment-dots');
 const firstQuestion  = document.querySelector('.firstQuestion');
+const secondQuestion  = document.querySelector('.secondQuestion');
 // declaring a cookie variable
 let cookie = document.cookie;
 
