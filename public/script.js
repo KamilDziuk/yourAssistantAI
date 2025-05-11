@@ -201,7 +201,12 @@ firstQuestion.style.display = "none";
 secondQuestion.style.display = "none";
 sendingAndReadingQueriesForAssistant();
 });
-
+secondQuestion.addEventListener('click',()=>{
+document.getElementById('askInputData').value = "Show portfolio?";
+secondQuestion.style.display = "none";
+firstQuestion.style.display = "none";
+sendingAndReadingQueriesForAssistant();
+});
 sendAsk.addEventListener('click',  () =>{
 clickLimit();
 firstQuestion.style.display = "none";
