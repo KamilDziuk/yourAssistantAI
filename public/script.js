@@ -204,7 +204,8 @@ sendingAndReadingQueriesForAssistant();
 
 sendAsk.addEventListener('click',  () =>{
 clickLimit();
-firstQuestion.style.display = "none"
+firstQuestion.style.display = "none";
+secondQuestion.style.display = "none";
 sendingAndReadingQueriesForAssistant();
 });
 // behavior of buttons and assistant window after click
