@@ -70,7 +70,10 @@ console.error("error", err);
       body: JSON.stringify({
         model: "gpt-4o-mini", // model GPT
         messages: [
+
+          
           { role: "system", content: `This assistant was created in JavaScript Node.js, CSS. And the data is saved in mongoDB.`},
+          { role: "system", content: `Answer questions related to the page https://kamildziuk.github.io/ only.`},
           { role: "system", content: `When user asks for conversation history display this: ${systemHistory}.` },
           { role: "user", content: userMessage }
         ],
