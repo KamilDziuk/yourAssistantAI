@@ -18,7 +18,7 @@ cd yourAssistantAI
 npm install express cors node-fetch dotenv mongodb eventsource-parser
 ```
 
-3. **Create a `.env` file:**
+3. **Create a `.env` file in src folder:**
 
 In the root directory, create a `.env` file:
 ```bash
