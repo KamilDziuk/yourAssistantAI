@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+}
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-wrap: anywhere;
+  color: #ffffff93;
+  background-color: rgb(5, 5, 55);
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
+  font-weight: 300;
+  scroll-behavior: smooth;
+  line-height: 1.4;
+}
+button {
+  background-color: #00000000;
+  border: none;
+}

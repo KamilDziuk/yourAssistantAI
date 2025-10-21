@@ -1,0 +1,146 @@
+.mainWindowText {
+  color: #fff;
+  padding: 2%;
+  font-size: 20px;
+}
+
+.readyToSent {
+  transform: scale(1);
+  transition: 1.3s;
+}
+
+.readyToSent:hover {
+  transform: scale(1.2);
+  color: #ffffff;
+  text-shadow: 2px 2px 5px #ffff;
+  transition: 1.2s;
+}
+
+.communicationContener {
+  display: flex;
+}
+
+input {
+  all: unset;
+  cursor: text;
+  font-size: 17px;
+  position: relative;
+  width: 95%;
+  height: 20px;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 1rem;
+  border: 1px solid rgb(49, 49, 49);
+  background: #0d0d0d;
+  transition: 1.3s;
+}
+
+.askInputData {
+  color: #ccc;
+}
+
+.inputTextColor {
+  color: #ff0000;
+}
+
+input:hover {
+  border: 1px solid rgb(255, 255, 255);
+  transition: 1.3s;
+}
+
+.responseBox {
+  position: relative;
+  width: 100%;
+  height: 77%;
+  margin-bottom: 5px;
+  overflow: auto;
+  padding: 0;
+  overflow-y: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid rgba(49, 49, 49, 0.938);
+  background: #0d0d0d;
+  scroll-behavior: smooth;
+}
+
+.assistantWindow {
+  padding: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: #0d0d0d46;
+  transform: translateX(-50%);
+  left: 50%;
+  backdrop-filter: blur(10px);
+  border-radius: 0rem;
+  z-index: 9999;
+}
+
+.responseText {
+  display: flex;
+  color: #a3a3a3;
+  text-align: left;
+  padding: 1px 10px 10px 10px;
+}
+
+.question {
+  display: flex;
+  direction: rtl;
+  text-align: right;
+  padding: 1px 10px 10px 10px;
+}
+
+.userTextElement {
+  direction: ltr;
+  padding-top: 8.5px;
+}
+
+.quickStart {
+  transition: 1.3s;
+  margin: 10px;
+  padding: 10px;
+  margin-top: 30px;
+  border-radius: 1rem;
+  text-align: left;
+  border-radius: 1rem;
+  border: 1px solid rgb(49, 49, 49);
+  background: #0d0d0d;
+  color: #ccc;
+}
+
+.quickStart:hover {
+  border: 1px solid rgb(255, 255, 255);
+  transition: 1.3s;
+}
+
+@media screen and (max-width: 500px) {
+  .mainWindowText {
+    padding: 4%;
+  }
+}
+@media screen and (max-width: 400px) {
+  .mainWindowText {
+    padding: 5%;
+  }
+}
+@media screen and (max-width: 300px) {
+  .mainWindowText {
+    padding: 7%;
+  }
+
+  .responseText {
+    margin-top: 1px;
+    margin-left: 5px;
+    display: flex;
+    padding: 5px 5px 5px 5px;
+  }
+
+  .question {
+    margin-top: 1px;
+    text-align: right;
+    margin-right: 5px;
+    padding: 5px 5px 5px 5px;
+  }
+}

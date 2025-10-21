@@ -1,0 +1,46 @@
+i {
+  position: relative;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 26px;
+  padding: 0px 5px 0px 5px;
+  display: inline;
+}
+.cloudIcon {
+  position: absolute;
+}
+.sendAsk {
+  padding: 0px 10px 0px 0px;
+}
+i:hover {
+  color: rgb(255, 255, 255);
+}
+.writingAnimation {
+  animation: muveAvatar 1s;
+}
+.rotateLoadingEfect {
+  animation: rotateloading 2s;
+}
+.writing {
+  color: rgb(211, 211, 211);
+  padding: 20px;
+  text-align: end;
+}
+@keyframes muveAvatar {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(50deg);
+  }
+  50% {
+    transform: rotate(-50deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes rotateloading {
+  100% {
+    transform: rotate(360deg);
+  }
+}
