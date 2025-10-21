@@ -1,6 +1,6 @@
 
 # yourAssistantAI
-![presentation](..client\src\assets\video\presentation.gif)
+![presentation](..\client\src\assets\video\presentation.gif)
 
 AI Assistant – a project using Express, CORS, MongoDB, and Server-Sent Events (SSE) communication.
 It also saves the conversation history to a database for future reference.
