@@ -33,7 +33,7 @@ Add your environment variables there, such as MongoDB connection strings or API 
 
 4. **Run the server:**
 ```bash
- node server.js
+ node app.js
 ```
 *(or the appropriate entry file, if it has a different name)*
 
