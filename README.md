@@ -26,8 +26,15 @@ In the root directory, create a `.env` file:
 ```bash
 touch .env
 ```
-and adding OPENAI_API_KEY= YOUR KEY
+and adding in .env file: 
+OPENAI_API_KEY= YOUR KEY
 PORT=3002
+
+```bash
+OPENAI_API_KEY=sk-example
+MONGO_URI=mongodb+srv://example_db_user:example.dcvh2ai.mongodb.net/chatbotConversations?retryWrites=true&w=majority
+PORT=3002
+```
 
 Add your environment variables there, such as MongoDB connection strings or API keys.
 
