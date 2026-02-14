@@ -15,8 +15,8 @@ cd yourAssistantAI
 
 2. **Install dependencies:**
 
-In \server\src install
-```bash
+In \server\src 
+   ```bash
 npm install express cors node-fetch dotenv mongodb eventsource-parser
 ```
 
