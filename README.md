@@ -31,7 +31,7 @@ PORT=3002
 
 Add your environment variables there, such as MongoDB connection strings or API keys.
 
-4. **Run the server:**
+4. **Run the server(server\src):**
 ```bash
  node app.js
 ```
