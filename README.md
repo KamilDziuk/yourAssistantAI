@@ -20,7 +20,7 @@ In \server\src install
 npm install express cors node-fetch dotenv mongodb eventsource-parser
 ```
 
-3. **Create a `.env` file in src folder:**
+3. **Create a `.env` file in \server\src folder:**
 
 In the root directory, create a `.env` file:
 ```bash
