@@ -5,8 +5,21 @@ import dotenv from "dotenv";
 import {
   gethistory,
   addingConversationHistory,
-} from "./config/addingConversationHistory.js";
+  getAgentConfigurationData,
+  updateAgentConfigurationData,
+} from "./config/conversationData.js";
+
 const conversationHistory = await gethistory();
+
+let stringData = "";
+
+async function updateContent() {
+  stringData = await getAgentConfigurationData();
+}
+
+await updateContent();
+
+setInterval(updateContent, 1000);
 
 dotenv.config();
 const app = express();
@@ -41,19 +54,19 @@ app.post("/ask", async (req, res) => {
         messages: [
           {
             role: "system",
-            content: `You are a personal assistant.
-Rules:
-- ONLY answer questions using these data sources: ${req.body.gitAbout}, ${req.body.gitRepo}.
-- Use ${conversationHistory} to remember what the user asked previously, and answer consistently.
-- Do not invent or guess any information.
-- If the user asks about projects, respond strictly based on ${req.body.gitAbout}.
-- If the user asks about GitHub repositories or projects, show ${req.body.gitRepo}.
-- If the user asks about previous conversations, you can summarize them using ${conversationHistory}.`,
+            content: `
+- Use ${conversationHistory} to remember what the user asked previously, and answer consistently.`,
+          },
+          {
+            role: "system",
+            content: `
+            ${stringData}`,
           },
           { role: "user", content: req.body.messages },
         ],
       }),
     });
+
 
     const d = await r.json();
     const text = d.choices?.[0]?.message?.content || "";
@@ -65,7 +78,5 @@ Rules:
   }
 });
 app.listen(process.env.PORT || 3000, () =>
-  console.log(
-    `Server running on http://localhost:${process.env.PORT || 3000}`
-  )
+  console.log(`Server running on http://localhost:${process.env.PORT || 3000}`),
 );
