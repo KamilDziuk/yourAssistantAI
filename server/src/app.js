@@ -39,6 +39,16 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
+app.post("/contact", async (req, res) => {
+  try {
+    updateAgentConfigurationData(await req.body.clientGuidelines);
+    res.send({ status: "ok" });
+  } catch (error) {
+    console.error("Problem to rsponse contact path:", error);
+    console.error("Message:", error.message);
+  }
+});
+
 app.post("/ask", async (req, res) => {
   try {
     const r = await fetch("https://api.openai.com/v1/chat/completions", {
