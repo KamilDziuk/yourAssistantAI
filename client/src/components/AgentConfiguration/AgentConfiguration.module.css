@@ -1,0 +1,46 @@
+.from {
+  position: relative;
+  margin-top: 5%;
+  left: 0%;
+  padding: 2%;
+
+  margin-bottom: 5%;
+  width: 100%;
+}
+
+.input::placeholder {
+  color: #ffffff;
+}
+
+.input,
+.textarea {
+  all: unset;
+  cursor: text;
+  font-size: 17px;
+  position: relative;
+  width: 95%;
+  height: 20px;
+  padding: 10px;
+  margin: 10px;
+  color: #ffffff;
+  border-radius: 1rem;
+  border: 1px solid rgb(49, 49, 49);
+  background: #0d0d0d;
+  transition: 1.3s;
+}
+
+@media (max-width: 990px) {
+  .from {
+    margin-top: 0%;
+    position: relative;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+@media (max-width: 450px) {
+  .input,
+  textarea {
+    font-size: 30px;
+  }
+}
