@@ -1,11 +1,11 @@
-import "./App.css";
-import ChatWindow from "../src/components/ChatWindow/ChatWindow";
 
+import "./App.css";
+import { HashRouter as Router, Routes, Route } from "react-router";
+import Home from "../src/pages/Home";
+import AgentConfiguration from "../src/pages/AgentConfiguration";
 function App() {
   return (
-    <>
-      <ChatWindow />
-    </>
+
   );
 }
 export default App;
