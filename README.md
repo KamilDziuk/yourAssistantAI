@@ -46,6 +46,17 @@ Add your environment variables there, such as MongoDB connection strings or API 
 
 ---
 
+## Additional Feature: Custom Agent Instructions
+
+This project includes a feature that allows you to define custom instructions for the AI agent.
+
+- Instructions can be entered through a dedicated input field in the application - [agent-configuration](https://your-assistant-ai.onrender.com/#agent-configuration).
+- These instructions specify what types of questions the agent should respond to or how it should behave.
+- Once provided, the instructions are stored in the MongoDB database.
+- The saved instructions are then dynamically passed to the agent during runtime.
+  
+This enables flexible customization of the assistant’s behavior without modifying the codebase.
+
 ## Required dependencies
 
 The project uses the following libraries:
