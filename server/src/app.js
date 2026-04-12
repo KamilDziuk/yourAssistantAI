@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import fetch from "node-fetch";
 import dotenv from "dotenv";
+import rateLimit from "express-rate-limit";
 import {
   gethistory,
   addingConversationHistory,
@@ -23,7 +24,11 @@ setInterval(updateContent, 1000);
 
 dotenv.config();
 const app = express();
-
+const limiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 3,
+  message: "Too many queries, please try again later.",
+});
 app.use(cors());
 app.use(express.json());
 
@@ -39,7 +44,7 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-app.post("/contact", async (req, res) => {
+app.post("/contact", limiter, async (req, res) => {
   try {
     updateAgentConfigurationData(await req.body.clientGuidelines);
     res.send({ status: "ok" });
@@ -49,7 +54,7 @@ app.post("/contact", async (req, res) => {
   }
 });
 
-app.post("/ask", async (req, res) => {
+app.post("/ask", limiter, async (req, res) => {
   try {
     const r = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
@@ -76,7 +81,6 @@ app.post("/ask", async (req, res) => {
         ],
       }),
     });
-
 
     const d = await r.json();
     const text = d.choices?.[0]?.message?.content || "";
