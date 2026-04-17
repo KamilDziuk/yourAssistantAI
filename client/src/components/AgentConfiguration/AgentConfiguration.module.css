@@ -18,16 +18,17 @@
   cursor: text;
   font-size: 17px;
   position: relative;
-  width: 95%;
+  width: 95% !important;
   height: 20px;
   padding: 10px;
   margin: 10px;
-  color: #ffffff;
+  color: #000000;
   border-radius: 1rem;
   border: 1px solid rgb(49, 49, 49);
   background: #0d0d0d;
   transition: 1.3s;
 }
+
 
 @media (max-width: 990px) {
   .from {

@@ -9,7 +9,8 @@
   overflow-wrap: anywhere;
   color: #ffffff93;
   background-color: rgb(5, 5, 55);
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+  font-family:
+    "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   overflow-x: hidden;
   font-weight: 300;
@@ -19,4 +20,18 @@
 button {
   background-color: #00000000;
   border: none;
+}
+
+textarea {
+  font-size: 17px;
+  position: relative;
+  width: 95%;
+  height: 300px;
+  padding: 10px;
+  margin: 10px;
+  color: #000000;
+  border-radius: 1rem;
+  border: 1px solid rgb(49, 49, 49);
+  background: #0d0d0d;
+  transition: 1.3s;
 }
