@@ -5,7 +5,7 @@ export default async function agentsReponsibility(customerQuestion: string) {
 
     // if local server -> example: localhost:3002/ask
     // if external server -> /ask
-    const API_URL = "http://localhost:3002/ask";
+    const API_URL = "/ask";
     const dataDecode = await gitHubAbout();
     const data = await gitHubRepo();
     const response = await fetch(API_URL, {
