@@ -1,6 +1,6 @@
 import Icon from "../Icon/Icon";
 import iconStyle from "../Icon/Icon.module.css";
-import chatWindowStyles from "./chatWindow.module.css";
+import chatWindowStyles from "./ChatWindow.module.css";
 import { useChatScroll, useChatWindow } from "./useChatWindow.ts";
 import ChatWindowCommunication from "./ChatWindowCommunication.tsx";
 import ChatWindowInput from "./ChatWindowInput.tsx";

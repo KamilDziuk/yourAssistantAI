@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import fetch from "node-fetch";
 import dotenv from "dotenv";
+dotenv.config();
 import helmet from "helmet";
 import { limiter } from "./limiter.js";
 import { z } from "zod";
@@ -17,6 +18,10 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+dotenv.config({
+  path: path.resolve(__dirname, "../../.env"),
+});
+
 const conversationHistory = await gethistory();
 
 let stringData = "";
@@ -29,7 +34,7 @@ await updateContent();
 
 setInterval(updateContent, 10000);
 
-dotenv.config();
+
 const app = express();
 
 app.use(
