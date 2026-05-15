@@ -2,10 +2,12 @@ import express from "express";
 import cors from "cors";
 import fetch from "node-fetch";
 import dotenv from "dotenv";
+
 dotenv.config();
+
 import helmet from "helmet";
 import { limiter } from "./limiter.js";
-import { z } from "zod";
+import { schemasServer } from "./schemas/schema.js";
 import {
   gethistory,
   addingConversationHistory,
@@ -14,6 +16,7 @@ import {
 } from "./config/conversationData.js";
 import path, { parse } from "path";
 import { fileURLToPath } from "url";
+import { openaiService } from "./services/openaiService.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -34,12 +37,14 @@ await updateContent();
 
 setInterval(updateContent, 10000);
 
-
 const app = express();
 
 app.use(
   cors({
-    origin: "https://your-assistant-ai.onrender.com",
+    origin: [
+      "https://yourassistantai.uk",
+      "https://www.yourassistantai.uk",
+    ],
     methods: ["POST"],
   }),
 );
@@ -50,13 +55,7 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../../client/dist", "index.html"));
 });
 
-const askSchema = z.object({
-  messages: z.string().min(1).max(1000),
-});
-
-const contactSchema = z.object({
-  clientGuidelines: z.string().min(1).max(5000),
-});
+const { askSchema, contactSchema } = schemasServer();
 
 app.post("/contact", limiter, async (req, res) => {
   try {
@@ -70,47 +69,16 @@ app.post("/contact", limiter, async (req, res) => {
 });
 
 app.post("/ask", limiter, async (req, res) => {
-  try {
-    const parsed = askSchema.safeParse(req.body);
-    const { messages } = parsed.data;
-    const requireOpenAI = await fetch(
-      "https://api.openai.com/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "gpt-4o-mini",
-          max_tokens: 100,
-          temperature: 0.9,
-          messages: [
-            {
-              role: "system",
-              content: `
-- Use ${conversationHistory} to remember what the user asked previously, and answer consistently.`,
-            },
-            {
-              role: "system",
-              content: `
-            ${stringData}`,
-            },
-            { role: "user", content: messages },
-          ],
-        }),
-      },
-    );
-
-    const dataContent = await requireOpenAI.json();
-    const text = dataContent.choices?.[0]?.message?.content || "";
-    addingConversationHistory(req.body.messages, text);
-    res.json(text);
-  } catch (error) {
-    console.error("Problem to rsponse api openai:", error);
-    console.error("Message:", error.message);
-  }
+  await openaiService(
+    askSchema,
+    req,
+    res,
+    conversationHistory,
+    addingConversationHistory,
+    stringData,
+  );
 });
+
 app.listen(process.env.PORT || 3000, () =>
   console.log(`Server running on http://localhost:${process.env.PORT || 3000}`),
 );

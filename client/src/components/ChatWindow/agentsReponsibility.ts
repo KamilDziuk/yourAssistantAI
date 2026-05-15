@@ -1,15 +1,16 @@
 import { gitHubAbout, gitHubRepo } from "../../GitHubAPI/gitHubUser";
-
+import { createRequestTimeout } from "../../utils/fetchTimeout";
 export default async function agentsReponsibility(customerQuestion: string) {
   try {
+    const { controller, timeout } = createRequestTimeout();
 
-    // if local server -> example: localhost:3002/ask
-    // if external server -> /ask
     const API_URL = "/ask";
     const dataDecode = await gitHubAbout();
     const data = await gitHubRepo();
+    
     const response = await fetch(API_URL, {
       method: "POST",
+      signal: controller.signal,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         messages: customerQuestion,
@@ -18,18 +19,20 @@ export default async function agentsReponsibility(customerQuestion: string) {
       }),
     });
 
+    clearTimeout(timeout);
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
+
     return await response.json();
   } catch (error) {
     console.error("Failure sending data from user query to server", error);
+
     throw new Error(
       `Failure sending data from user query to server : ${
         (error as Error).message || "Unknown error"
-      }`
+      }`,
     );
   }
 }
-
-
