@@ -1,14 +1,15 @@
 import { gitHubAbout, gitHubRepo } from "../../GitHubAPI/gitHubUser";
 import { createRequestTimeout } from "../../utils/fetchTimeout";
+const API_URL = import.meta.env.VITE_API_URL;
 export default async function agentsReponsibility(customerQuestion: string) {
   try {
     const { controller, timeout } = createRequestTimeout();
 
-    const API_URL = "/ask";
+    const API_URL_ASK = `${API_URL}/ask`;
     const dataDecode = await gitHubAbout();
     const data = await gitHubRepo();
-    
-    const response = await fetch(API_URL, {
+
+    const response = await fetch(API_URL_ASK, {
       method: "POST",
       signal: controller.signal,
       headers: { "Content-Type": "application/json" },
