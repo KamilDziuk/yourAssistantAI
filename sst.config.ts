@@ -5,7 +5,7 @@ export default $config({
     return {
       name: "yourassistantai",
       removal: input?.stage === "production" ? "retain" : "remove",
-      protect: ["production"].includes(input?.stage),
+      protect: false,
       home: "aws",
     };
   },
@@ -37,6 +37,12 @@ export default $config({
 
       environment: {
         VITE_API_URL: api.url,
+      },
+      domain: {
+        name: "yourassistantai.uk",
+        aliases: ["www.yourassistantai.uk"],
+        dns: false,
+        cert: "arn:aws:acm:us-east-1:387075079525:certificate/7b0acb4a-bc5f-4c4c-8b0d-1acb32f34bec",
       },
     });
 
