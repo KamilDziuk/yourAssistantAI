@@ -5,7 +5,7 @@ export default async function agentsReponsibility(customerQuestion: string) {
   try {
     const { controller, timeout } = createRequestTimeout();
 
-    const API_URL_ASK = `${API_URL}/ask`;
+    const API_URL_ASK = `${API_URL}ask`;
     const dataDecode = await gitHubAbout();
     const data = await gitHubRepo();
 

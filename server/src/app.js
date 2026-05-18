@@ -1,82 +1,86 @@
 import express from "express";
-import cors from "cors";
-import fetch from "node-fetch";
-import dotenv from "dotenv";
-
-dotenv.config();
-
-import helmet from "helmet";
 import { limiter } from "./limiter.js";
 import { schemasServer } from "./schemas/schema.js";
+import helmet from "helmet";
+
 import {
   gethistory,
   addingConversationHistory,
   getAgentConfigurationData,
   updateAgentConfigurationData,
 } from "./config/conversationData.js";
-import path, { parse } from "path";
-import { fileURLToPath } from "url";
+
 import { openaiService } from "./services/openaiService.js";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-dotenv.config({
-  path: path.resolve(__dirname, "../../.env"),
-});
 
 const conversationHistory = await gethistory();
 
-let stringData = "";
-
-async function updateContent() {
-  stringData = await getAgentConfigurationData();
-}
-
-await updateContent();
-
-setInterval(updateContent, 10000);
+let stringData = await getAgentConfigurationData();
 
 const app = express();
 
+app.use(helmet());
+app.use(express.json({ limit: "10kb" }));
+
 app.use(
-  cors({
-    origin: [
-      "https://yourassistantai.uk",
-      "https://www.yourassistantai.uk",
-    ],
-    methods: ["POST"],
+  express.urlencoded({
+    extended: true,
+    limit: "10kb",
   }),
 );
-app.use(express.json({ limit: "10kb" }));
-app.use(express.urlencoded({ extended: true, limit: "10kb" }));
-app.use(express.static(path.join(__dirname, "../../client/dist")));
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../client/dist", "index.html"));
-});
 
 const { askSchema, contactSchema } = schemasServer();
 
 app.post("/contact", limiter, async (req, res) => {
   try {
     const parsed = contactSchema.safeParse(req.body);
+
+    if (!parsed.success) {
+      return res.status(400).json({
+        error: "Invalid request body",
+      });
+    }
+
     await updateAgentConfigurationData(parsed.data.clientGuidelines);
-    res.send({ status: "ok" });
+
+    return res.send({
+      status: "ok",
+    });
   } catch (error) {
-    console.error("Problem to rsponse contact path:", error);
-    console.error("Message:", error.message);
+    console.error("CONTACT ERROR:", error);
+
+    return res.status(500).json({
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
   }
 });
 
 app.post("/ask", limiter, async (req, res) => {
-  await openaiService(
-    askSchema,
-    req,
-    res,
-    conversationHistory,
-    addingConversationHistory,
-    stringData,
-  );
+  try {
+    stringData = await getAgentConfigurationData();
+
+    await openaiService(
+      askSchema,
+      req,
+      res,
+      conversationHistory,
+      addingConversationHistory,
+      stringData,
+    );
+  } catch (error) {
+    console.error("ASK ERROR:", error);
+
+    return res.status(500).json({
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+});
+
+app.use((err, req, res, _next) => {
+  console.error("GLOBAL ERROR:", err);
+
+  return res.status(500).json({
+    error: err instanceof Error ? err.message : "Internal Server Error",
+  });
 });
 
 export default app;
