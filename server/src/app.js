@@ -2,7 +2,7 @@ import express from "express";
 import { limiter } from "./limiter.js";
 import { schemasServer } from "./schemas/schema.js";
 import helmet from "helmet";
-
+import { Resource } from "sst";
 import {
   gethistory,
   addingConversationHistory,
@@ -30,13 +30,20 @@ app.use(
 
 const { askSchema, contactSchema } = schemasServer();
 
-app.post("/contact", limiter, async (req, res) => {
+app.post("/:token/contact", limiter, async (req, res) => {
   try {
     const parsed = contactSchema.safeParse(req.body);
+    const { token } = req.params;
+
+    if (token !== process.env.SECRET_TOKEN) {
+      return res.status(401).json({
+        error: `Invalid request token`,
+      });
+    }
 
     if (!parsed.success) {
       return res.status(400).json({
-        error: "Invalid request body",
+        error: `Invalid request body`,
       });
     }
 
