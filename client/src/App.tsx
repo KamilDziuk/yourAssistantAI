@@ -7,7 +7,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/agent-configuration" element={<AgentConfiguration />} />
+        <Route path="/:token/agent-configuration" element={<AgentConfiguration />} />
       </Routes>
     </Router>
   );
