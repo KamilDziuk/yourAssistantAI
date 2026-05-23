@@ -22,9 +22,6 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install root dependencies
-        run: npm install
-
       - name: Install client dependencies
         run: |
           cd client
