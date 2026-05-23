@@ -2,7 +2,7 @@ import express from "express";
 import { limiter } from "./limiter.js";
 import { schemasServer } from "./schemas/schema.js";
 import helmet from "helmet";
-import { Resource } from "sst";
+
 import {
   gethistory,
   addingConversationHistory,
