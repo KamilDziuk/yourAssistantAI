@@ -2,77 +2,278 @@
 # yourAssistantAI
 ![presentation](https://raw.githubusercontent.com/KamilDziuk/yourAssistantAI/main/client/src/assets/video/presentation.gif)
 
-AI Assistant – a project using Express, CORS, MongoDB, and Server-Sent Events (SSE) communication.
-It also saves the conversation history to a database for future reference.
+AI Assistant platform built with:
 
-## Installation in the terminal
+- React + TypeScript
+- Express.js
+- MongoDB
+- OpenAI API
+- AWS Lambda
+- SST
+- CloudFront
+- GitHub Actions CI/CD
 
-1. **Clone the repository:**
+The assistant can answer questions about portfolio projects, technologies, GitHub repositories, and dynamically configurable agent instructions.
+
+
+
+# Features
+
+- AI chat assistant powered by OpenAI
+- MongoDB conversation history storage
+- Dynamic AI agent configuration
+- Protected admin configuration endpoint
+- GitHub API integration
+- AWS production deployment with SST
+- CloudFront CDN distribution
+- HTTPS custom domain support
+- GitHub Actions CI/CD pipeline
+- Automated dependency monitoring with Dependabot
+- Rate limiting and request validation
+- Serverless backend using AWS Lambda
+
+---
+
+# Tech Stack
+
+## Frontend
+- React
+- TypeScript
+- Vite
+
+## Backend
+- Express.js
+- MongoDB
+- OpenAI API
+
+## Infrastructure
+- SST
+- AWS Lambda
+- CloudFront
+- ACM
+- Cloudflare DNS
+
+## DevOps
+- GitHub Actions
+- Dependabot
+
+---
+
+# Installation
+
+##  Clone repository
+
 ```bash
 git clone https://github.com/KamilDziuk/yourAssistantAI.git
 cd yourAssistantAI
-```
+````
 
-2. **Install dependencies:**
+---
 
-In \server\src 
-   ```bash
-npm install express cors node-fetch dotenv mongodb eventsource-parser
-```
+# Install dependencies
 
-3. **Create a `.env` file in \server\src folder:**
-
-In the root directory, create a `.env` file:
-```bash
-touch .env
-```
-and adding in .env file: 
-OPENAI_API_KEY= YOUR KEY
-PORT=3002
+## Client
 
 ```bash
+cd client
+npm install
+```
+
+## Server
+
+```bash
+cd ../server
+npm install
+```
+
+---
+
+# Environment variables
+
+Create:
+
+```bash
+server/.env
+```
+
+Example:
+
+```env
 OPENAI_API_KEY=sk-example
-MONGO_URI=mongodb+srv://example_db_user:example.dcvh2ai.mongodb.net/chatbotConversations?retryWrites=true&w=majority
-PORT=3002
+MONGO_URI=mongodb+srv://example.mongodb.net/chatbot
+SECRET_TOKEN=my-secret-token
 ```
 
-Add your environment variables there, such as MongoDB connection strings or API keys.
+---
 
-4. **Run the server(server\src):**
+# Run development environment
+
+## Frontend
+
 ```bash
- node app.js
+cd client
+npm run dev
 ```
-*(or the appropriate entry file, if it has a different name)*
+
+## Backend
+
+```bash
+cd server
+npm run dev
+```
 
 ---
 
-## Additional Feature: Custom Agent Instructions
+# Production Deployment (AWS)
 
-This project includes a feature that allows you to define custom instructions for the AI agent.
+This project uses:
 
-- Instructions can be entered through a dedicated input field in the application - [agent-configuration](https://your-assistant-ai.onrender.com/#agent-configuration).
-- These instructions specify what types of questions the agent should respond to or how it should behave.
-- Once provided, the instructions are stored in the MongoDB database.
-- The saved instructions are then dynamically passed to the agent during runtime.
-  
-This enables flexible customization of the assistant’s behavior without modifying the codebase.
-
-## Required dependencies
-
-The project uses the following libraries:
-
-- `express` – HTTP server
-- `cors` – handling CORS policy
-- `node-fetch` – making HTTP requests
-- `dotenv` – managing environment variables
-- `mongodb` – working with MongoDB database
-- `eventsource-parser` – parsing Server-Sent Events (SSE)
+* SST
+* AWS Lambda
+* CloudFront
+* ACM SSL certificates
+* GitHub Actions CI/CD
 
 ---
 
-## Requirements
+# Deploy manually
 
-- Node.js version 18 or higher (recommended)
-- Access to a MongoDB database
+```bash
+npx sst deploy --stage production
+```
 
 ---
+
+# CI/CD
+
+Every push to:
+
+```txt
+main
+```
+
+automatically triggers:
+
+* GitHub Actions
+* SST deployment
+* AWS infrastructure update
+
+---
+
+# Dependabot
+
+The project includes automated dependency monitoring using:
+
+```txt
+.github/dependabot.yml
+```
+
+GitHub automatically creates Pull Requests for dependency updates.
+
+---
+
+# Protected Agent Configuration Endpoint
+
+The application includes a secured backend endpoint for dynamically updating AI assistant behavior.
+
+This mechanism allows modifying the assistant configuration without exposing the endpoint publicly.
+
+---
+
+# How It Works
+
+The frontend uses a dynamic token stored directly in the URL.
+
+Example route:
+
+```txt
+/#/:token/agent-configuration
+```
+
+Example:
+
+```txt
+https://yourassistantai.uk/#/my-secret-token/agent-configuration
+```
+
+The token is extracted on the frontend using:
+
+```ts
+useParams()
+```
+
+from React Router and then sent securely to the backend API.
+
+---
+
+# Protected API Endpoint
+
+The backend exposes a protected route:
+
+```txt
+POST /:token/contact
+```
+
+Example:
+
+```txt
+POST https://api-domain.com/my-secret-token/contact
+```
+
+---
+
+# Purpose
+
+This functionality prevents unauthorized users from modifying the AI assistant configuration.
+
+Only users with a valid secret token are able to access the protected configuration endpoint.
+
+This approach provides:
+
+* dynamic runtime configuration,
+* protected AI behavior management,
+* secure backend authorization,
+* environment-based secret management using SST.
+
+---
+
+# AI Agent Configuration
+
+The assistant supports dynamic runtime instructions.
+
+Custom instructions:
+
+* are saved in MongoDB,
+* can be updated from the frontend,
+* are injected into the AI context dynamically.
+
+This allows changing assistant behavior without redeploying the application.
+
+---
+
+# Environment Requirements
+
+* Node.js 22+
+* MongoDB database
+* OpenAI API key
+* AWS account (for production deployment)
+
+---
+
+# Project Structure
+
+```txt
+yourAssistantAI/
+├── .github/
+│   ├── workflows/
+│   └── dependabot.yml
+├── client/
+├── server/
+├── sst.config.ts
+```
+
+---
+
+# Live Project
+
+[yourassistantai.uk](https://yourassistantai.uk?utm_source=chatgpt.com)
