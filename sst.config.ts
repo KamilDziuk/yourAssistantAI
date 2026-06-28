@@ -12,6 +12,7 @@ export default $config({
   async run() {
     const openAiKey = new sst.Secret("OPENAI_API_KEY");
     const mongoUri = new sst.Secret("MONGO_URI");
+    const secretToken = new sst.Secret("SECRET_TOKEN");
 
     const api = new sst.aws.Function("Api", {
       handler: "server/lambda.handler",
@@ -24,6 +25,7 @@ export default $config({
         NODE_ENV: "production",
         OPENAI_API_KEY: openAiKey.value,
         MONGO_URI: mongoUri.value,
+        SECRET_TOKEN: secretToken.value,
       },
     });
 
