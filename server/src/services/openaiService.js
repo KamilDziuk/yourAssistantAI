@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-
+import { schemasServer } from "../schemas/schema.js";
 export async function askOpenAI(messages) {
   const { askSchema } = schemasServer();
   const parsed = askSchema.safeParse(req.body);
