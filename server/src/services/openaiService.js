@@ -1,3 +1,4 @@
+
 export async function openaiService({
   askSchema,
   body,
@@ -11,6 +12,7 @@ export async function openaiService({
     if (!parsed.success) {
       throw new Error("Invalid request body");
     }
+
 
     const { messages } = parsed.data;
 
