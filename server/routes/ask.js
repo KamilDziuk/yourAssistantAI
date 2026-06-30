@@ -9,8 +9,7 @@ import {
 
 const router = express.Router();
 
-router.post("/", limiter, async (req, res) => {
-
+router.post("/", limiter, async (req, res, next) => {
   let config = "";
 
   async function updateContent() {
@@ -33,14 +32,17 @@ router.post("/", limiter, async (req, res) => {
         content: `
             ${config}`,
       },
-      { role: "user", content: req.body.messages },
+      {
+        role: "user",
+        content: req.body.messages,
+      },
     ]);
 
     await addingConversationHistory(req.body.messages, answer);
+
     res.json(answer);
   } catch (error) {
-    console.error("Problem to rsponse api openai:", error);
-    console.error("Message:", error.message);
+    next(error);
   }
 });
 export default router;

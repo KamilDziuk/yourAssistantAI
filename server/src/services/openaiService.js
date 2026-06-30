@@ -1,9 +1,15 @@
 import fetch from "node-fetch";
+import { schemasServer } from "../schemas/schema";
 
 export async function askOpenAI(messages) {
   const { askSchema } = schemasServer();
-  const parsed = askSchema.safeParse(req.body);
-  messages = parsed.data;
+
+  const parsed = askSchema.safeParse(messages);
+
+  if (!parsed.success) {
+    throw new Error(parsed.error.message);
+  }
+
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: {
@@ -12,12 +18,17 @@ export async function askOpenAI(messages) {
     },
     body: JSON.stringify({
       model: "gpt-4o-mini",
-      max_tokens: 100,
+      messages: parsed.data,
       temperature: 0.9,
-      messages,
+      max_tokens: 300,
     }),
   });
 
   const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.error?.message || "OpenAI request failed.");
+  }
+
   return data.choices?.[0]?.message?.content ?? "";
 }
