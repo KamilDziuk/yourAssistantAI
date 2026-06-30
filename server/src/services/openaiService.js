@@ -1,60 +1,52 @@
 
-export async function openaiService({
+
+export async function openaiService(
   askSchema,
-  body,
+  req,
+  res,
   conversationHistory,
   addingConversationHistory,
   stringData,
-}) {
+) {
   try {
-    const parsed = askSchema.safeParse(body);
-
-    if (!parsed.success) {
-      throw new Error("Invalid request body");
-    }
-
-
+    const parsed = askSchema.safeParse(req.body);
     const { messages } = parsed.data;
-
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-        "Content-Type": "application/json",
+    const requireOpenAI = await fetch(
+      "https://api.openai.com/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "gpt-4o-mini",
+          max_tokens: 100,
+          temperature: 0.9,
+          messages: [
+            {
+              role: "system",
+              content: `
+- Use ${conversationHistory} to remember what the user asked previously, and answer consistently.`,
+            },
+            {
+              role: "system",
+              content: `
+            ${stringData}`,
+            },
+            { role: "user", content: messages },
+          ],
+        }),
       },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        max_tokens: 100,
-        temperature: 0.9,
-        messages: [
-          {
-            role: "system",
-            content: `
-Use conversation history to stay consistent:
-${JSON.stringify(conversationHistory)}
-              `,
-          },
-          {
-            role: "system",
-            content: stringData,
-          },
-          {
-            role: "user",
-            content: messages,
-          },
-        ],
-      }),
-    });
+    );
 
-    const data = await response.json();
+    const dataContent = await requireOpenAI.json();
+    const text = dataContent.choices?.[0]?.message?.content || "";
+    addingConversationHistory(req.body.messages, text);
 
-    const text = data?.choices?.[0]?.message?.content || "";
-
-    await addingConversationHistory(messages, text);
-
-    return text;
+    res.json(text);
   } catch (error) {
-    console.error("OpenAI service error:", error);
-    throw error;
+    console.error("Problem to rsponse api openai:", error);
+    console.error("Message:", error.message);
   }
 }
