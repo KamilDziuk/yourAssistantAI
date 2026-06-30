@@ -2,17 +2,12 @@ import express from "express";
 import { limiter } from "./limiter.js";
 import { schemasServer } from "./schemas/schema.js";
 import helmet from "helmet";
+import askRoute from "../routes/ask.js";
 
 import {
-  gethistory,
-  addingConversationHistory,
   getAgentConfigurationData,
   updateAgentConfigurationData,
 } from "./config/conversationData.js";
-
-import { openaiService } from "./services/openaiService.js";
-
-const conversationHistory = await gethistory();
 
 let stringData = await getAgentConfigurationData();
 
@@ -28,7 +23,22 @@ app.use(
   }),
 );
 
-const { askSchema, contactSchema } = schemasServer();
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+app.use("/ask", askRoute);
+
+
+const { askSchema } = schemasServer();
 
 app.post("/:token/contact", limiter, async (req, res) => {
   try {
@@ -61,27 +71,6 @@ app.post("/:token/contact", limiter, async (req, res) => {
   }
 });
 
-app.post("/ask", limiter, async (req, res) => {
-  try {
-    stringData = await getAgentConfigurationData();
-
-    await openaiService(
-      askSchema,
-      req,
-      res,
-      conversationHistory,
-      addingConversationHistory,
-      stringData,
-    );
-  } catch (error) {
-    console.error("ASK ERROR:", error);
-
-    return res.status(500).json({
-      error: error instanceof Error ? error.message : "Unknown error",
-    });
-  }
-});
-
 app.use((err, req, res, _next) => {
   console.error("GLOBAL ERROR:", err);
 
@@ -89,5 +78,3 @@ app.use((err, req, res, _next) => {
     error: err instanceof Error ? err.message : "Internal Server Error",
   });
 });
-
-export default app;
