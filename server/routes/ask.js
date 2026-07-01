@@ -11,6 +11,7 @@ import {
 const router = express.Router();
 const { askSchema } = schemasServer();
 const conversationHistory = await gethistory();
+let stringData = await getAgentConfigurationData();
 
 router.post("/", limiter, async (req, res) => {
   try {
