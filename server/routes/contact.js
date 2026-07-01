@@ -1,36 +1,34 @@
 import express from "express";
 import { limiter } from "../src/limiter.js";
 import { schemasServer } from "../src/schemas/schema.js";
-import { openaiService } from "../src/services/openaiService.js";
-import {
-  updateAgentConfigurationData,
-} from "../src/config/conversationData.js";
+import { updateAgentConfigurationData } from "../src/config/conversationData.js";
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 const { contactSchema } = schemasServer();
 
-
-router.post("/:token", limiter, async (req, res) => {
+router.post("/", limiter, async (req, res) => {
   try {
     const parsed = contactSchema.safeParse(req.body);
-    const { token } = req.params;
-
-    if (token !== process.env.SECRET_TOKEN) {
-      return res.status(401).json({
-        error: `Invalid request token`,
-      });
-    }
 
     if (!parsed.success) {
       return res.status(400).json({
-        error: `Invalid request body`,
+        error: "Invalid request body",
+        details: parsed.error.flatten(),
+      });
+    }
+
+    const { token } = req.params;
+
+    if (!process.env.SECRET_TOKEN || token !== process.env.SECRET_TOKEN) {
+      return res.status(401).json({
+        error: "Invalid request token",
       });
     }
 
     await updateAgentConfigurationData(parsed.data.clientGuidelines);
 
-    return res.send({
+    return res.json({
       status: "ok",
     });
   } catch (error) {

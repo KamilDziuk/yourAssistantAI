@@ -16,7 +16,7 @@ app.use(
 );
 
 app.use("/ask", askRoute);
-app.use("/contact", contactRoute);
+app.use("/:token/contact", contactRoute);
 
 app.use((err, req, res, _next) => {
   console.error("GLOBAL ERROR:", err);
