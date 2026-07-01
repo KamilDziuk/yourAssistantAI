@@ -11,7 +11,7 @@ const router = express.Router();
 const { contactSchema } = schemasServer();
 
 
-router.post("/", limiter, async (req, res) => {
+router.post("/:token", limiter, async (req, res) => {
   try {
     const parsed = contactSchema.safeParse(req.body);
     const { token } = req.params;
