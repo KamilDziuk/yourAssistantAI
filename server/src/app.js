@@ -15,7 +15,6 @@ app.use(
   }),
 );
 
-
 app.use("/ask", askRoute);
 app.use("/contact", contactRoute);
 
@@ -26,3 +25,5 @@ app.use((err, req, res, _next) => {
     error: err instanceof Error ? err.message : "Internal Server Error",
   });
 });
+
+export default app;
