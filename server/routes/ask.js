@@ -1,7 +1,7 @@
 import express from "express";
 import { limiter } from "../src/limiter.js";
 import { schemasServer } from "../src/schemas/schema.js";
-import { openaiService } from "../src/services/openaiService.js";
+import { openaiService } from "../services/openaiService";
 import {
   gethistory,
   addingConversationHistory,
@@ -25,12 +25,9 @@ router.post("/", limiter, async (req, res) => {
       addingConversationHistory,
       stringData,
     );
-  } catch (error) {
-    console.error("ASK ERROR:", error);
+  } catch (err) {
 
-    return res.status(500).json({
-      error: error instanceof Error ? error.message : "Unknown error",
-    });
+    next(err);
   }
 });
 

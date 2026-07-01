@@ -1,7 +1,9 @@
 import express from "express";
 import helmet from "helmet";
 import askRoute from "../routes/ask.js";
-import contactRoute from "../routes/contact.js";
+import userInstructionsRoute from "../routes/userInstructions.js";
+import notFound from "../middleware/notFound.js";
+import errorHandler from "../middleware/errorHandler.js";
 
 const app = express();
 
@@ -16,14 +18,9 @@ app.use(
 );
 
 app.use("/ask", askRoute);
-app.use("/:token/contact", contactRoute);
+app.use("/:token/userInstructions", userInstructionsRoute);
 
-app.use((err, req, res, _next) => {
-  console.error("GLOBAL ERROR:", err);
-
-  return res.status(500).json({
-    error: err instanceof Error ? err.message : "Internal Server Error",
-  });
-});
+app.use(notFound);
+app.use(errorHandler);
 
 export default app;

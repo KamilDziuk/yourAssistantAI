@@ -31,12 +31,9 @@ router.post("/", limiter, async (req, res) => {
     return res.json({
       status: "ok",
     });
-  } catch (error) {
-    console.error("CONTACT ERROR:", error);
-
-    return res.status(500).json({
-      error: error instanceof Error ? error.message : "Unknown error",
-    });
+  } catch (err) {
+  
+    next(err);
   }
 });
 

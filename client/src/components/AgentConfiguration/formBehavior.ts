@@ -17,7 +17,7 @@ export function useMenuBehaviorAfterSending() {
   const sendData = (e: any) => {
     e.preventDefault();
     axios
-      .post(`${API_URL}${token}/contact`, {
+      .post(`${API_URL}${token}/userInstructions`, {
         clientGuidelines,
       })
       .then(() => {
