@@ -1,3 +1,5 @@
+
+
 export async function openaiService(
   askSchema,
   req,
@@ -7,7 +9,6 @@ export async function openaiService(
   stringData,
 ) {
   try {
-
     const parsed = askSchema.safeParse(req.body);
     const { messages } = parsed.data;
     const requireOpenAI = await fetch(

@@ -3,14 +3,13 @@ import { limiter } from "../src/limiter.js";
 import { schemasServer } from "../src/schemas/schema.js";
 import { openaiService } from "../src/services/openaiService.js";
 import {
-  getAgentConfigurationData,
   updateAgentConfigurationData,
 } from "../src/config/conversationData.js";
 
 const router = express.Router();
 
 const { contactSchema } = schemasServer();
-let stringData = await getAgentConfigurationData();
+
 
 router.post("/", limiter, async (req, res) => {
   try {

@@ -5,6 +5,7 @@ import { openaiService } from "../src/services/openaiService.js";
 import {
   gethistory,
   addingConversationHistory,
+  getAgentConfigurationData,
 } from "../src/config/conversationData.js";
 
 const router = express.Router();
