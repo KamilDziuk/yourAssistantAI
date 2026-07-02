@@ -1,4 +1,4 @@
-
+import logger from "../src/config/logger";
 
 export async function openaiService(
   askSchema,
@@ -10,6 +10,12 @@ export async function openaiService(
 ) {
   try {
     const parsed = askSchema.safeParse(req.body);
+
+    if (!parsed.success) {
+      logger.warn({ body: req.body }, "Invalid request payload");
+      throw new Error("Invalid request");
+    }
+
     const { messages } = parsed.data;
     const requireOpenAI = await fetch(
       "https://api.openai.com/v1/chat/completions",
@@ -40,13 +46,25 @@ export async function openaiService(
       },
     );
 
+    if (requireOpenAI.status === 429) {
+      logger.warn("Rate limit hit (or quota exceeded)");
+    }
+
     const dataContent = await requireOpenAI.json();
     const text = dataContent.choices?.[0]?.message?.content || "";
     addingConversationHistory(req.body.messages, text);
 
     res.json(text);
-  } catch (error) {
-    console.error("Problem to rsponse api openai:", error);
-    console.error("Message:", error.message);
+
+    logger.info(
+      {
+        model: "gpt-4o-mini",
+        max_tokens: 100,
+      },
+      "OpenAI request completed",
+    );
+  } catch (err) {
+    logger.error({ err }, "OpenAI service error");
+    throw err;
   }
 }

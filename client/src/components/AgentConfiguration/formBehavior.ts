@@ -28,6 +28,14 @@ export function useMenuBehaviorAfterSending() {
         setSendingError(false);
       })
       .catch((err) => {
+        const status = err.response?.status;
+        const message = err.response?.data?.message;
+
+        if (status === 429) {
+          console.warn("Limiter:", message);
+        }
+
+        
         setTimeout(() => {
           setSuccessfulSending(true);
         }, 2000);
