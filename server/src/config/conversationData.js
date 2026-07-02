@@ -1,6 +1,7 @@
 import mongoDB from "./configDB.js";
 import ConversationHistory from "./models/conversationHistoryModel.js";
 import AgentConfigurationData from "./models/agentConfigurationData.js";
+import logger from "./logger.js";
 
 export async function addingConversationHistory(
   questionFromCustomer,
@@ -13,9 +14,11 @@ export async function addingConversationHistory(
       question: questionFromCustomer,
       answer: answerFromOpenAI,
     }).save();
-  } catch (error) {
-    console.error("Problem to conversation history", error);
-    console.error("Message:", error.message);
+
+    logger.info("Correctly sending the conversation history");
+  } catch (err) {
+    logger.error({ err }, "Problem to conversation history");
+    throw err;
   }
 }
 async function deletingDataFromDatabase() {
@@ -31,10 +34,11 @@ export async function gethistory() {
     const getfullData = getData.map((t) => t.question);
     const stringData = String(getfullData);
 
+    logger.info("Correctly download the conversation history");
     return stringData;
-  } catch (error) {
-    console.error("Problem to get history", error);
-    console.error("Message:", error.message);
+  } catch (err) {
+    logger.error({ err }, "Failed download the conversation history");
+    throw err;
   }
 }
 
@@ -47,9 +51,10 @@ export async function updateAgentConfigurationData(customerText) {
       { $set: { customerData: customerText } },
       { upsert: true, new: true },
     );
-  } catch (error) {
-    console.error("Problem to update agent configuration data", error);
-    console.error("Message:", error.message);
+    logger.info("Correctly instance change for agent");
+  } catch (err) {
+    logger.error({ err }, "Failed download the conversation history");
+    throw err;
   }
 }
 export async function getAgentConfigurationData() {
@@ -60,9 +65,15 @@ export async function getAgentConfigurationData() {
       await AgentConfigurationData.find().select("customerData -_id");
     const getfullData = getData.map((t) => t.customerData);
     const stringData = String(getfullData);
+    logger.info(
+      "Correctly writing data from the database using the customerData variable",
+    );
     return stringData;
-  } catch (error) {
-    console.error("Problem to get agent configuration data", error);
-    console.error("Message:", error.message);
+  } catch (err) {
+    logger.error(
+      { err },
+      "Incorrectly writing data from the database after the customerData variable",
+    );
+    throw err;
   }
 }
