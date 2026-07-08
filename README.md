@@ -239,6 +239,8 @@ This approach provides:
 
 # AI Agent Configuration
 
+![presentation2](https://raw.githubusercontent.com/KamilDziuk/yourAssistantAI/main/client/src/assets/video/presentation2.gif)
+
 The assistant supports dynamic runtime instructions.
 
 Custom instructions:
