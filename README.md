@@ -241,6 +241,10 @@ This approach provides:
 
 ![presentation2](https://raw.githubusercontent.com/KamilDziuk/yourAssistantAI/main/client/src/assets/video/presentation2.gif)
 
+## How it works
+
+![presentation](https://raw.githubusercontent.com/KamilDziuk/yourAssistantAI/main/client/src/assets/agent-configuratio-presentation.png)
+
 The assistant supports dynamic runtime instructions.
 
 Custom instructions:
