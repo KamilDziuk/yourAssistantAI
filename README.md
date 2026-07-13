@@ -2,6 +2,8 @@
 # yourAssistantAI
 ![presentation](https://raw.githubusercontent.com/KamilDziuk/yourAssistantAI/main/client/src/assets/video/presentation.gif)
 
+![architecture-diagram-presentation](https://raw.githubusercontent.com/KamilDziuk/yourAssistantAI/main/client/src/assets/architecture-diagram-presentation.png)
+
 AI Assistant platform built with:
 
 - React + TypeScript
