@@ -1,7 +1,7 @@
 import express from "express";
 import { limiter } from "../src/limiter.js";
 import { schemasServer } from "../src/schemas/schema.js";
-import { openaiService } from "../services/openaiService";
+import { openaiService } from "../services/openaiService.js";
 import {
   gethistory,
   addingConversationHistory,
@@ -13,7 +13,7 @@ const { askSchema } = schemasServer();
 const conversationHistory = await gethistory();
 let stringData = await getAgentConfigurationData();
 
-router.post("/", limiter, async (req, res) => {
+router.post("/", limiter, async (req, res, next) => {
   try {
     stringData = await getAgentConfigurationData();
 

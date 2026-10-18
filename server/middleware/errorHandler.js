@@ -1,4 +1,4 @@
-import logger from "../src/config/logger";
+import logger from "../src/config/logger.js";
 
 
 export default function errorHandler(err, req, res, next) {
@@ -10,7 +10,7 @@ export default function errorHandler(err, req, res, next) {
 
   res.status(status).json({
     error:
-      process.env.NODE_ENV === "production"
+      process.env.NODE_ENV === "production" && status >= 500
         ? "Internal Server Error"
         : err.message,
   });

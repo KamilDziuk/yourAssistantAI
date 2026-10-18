@@ -1,4 +1,4 @@
-import logger from "../src/config/logger";
+import logger from "../src/config/logger.js";
 
 export async function openaiService(
   askSchema,
@@ -13,7 +13,9 @@ export async function openaiService(
 
     if (!parsed.success) {
       logger.warn({ body: req.body }, "Invalid request payload");
-      throw new Error("Invalid request");
+      const err = new Error("Invalid request");
+      err.status = 400;
+      throw err;
     }
 
     const { messages } = parsed.data;
@@ -46,8 +48,14 @@ export async function openaiService(
       },
     );
 
-    if (requireOpenAI.status === 429) {
-      logger.warn("Rate limit hit (or quota exceeded)");
+    if (!requireOpenAI.ok) {
+      if (requireOpenAI.status === 429) {
+        logger.warn("Rate limit hit (or quota exceeded)");
+      }
+
+      const err = new Error(`OpenAI request failed: ${requireOpenAI.status}`);
+      err.status = requireOpenAI.status === 429 ? 429 : 502;
+      throw err;
     }
 
     const dataContent = await requireOpenAI.json();

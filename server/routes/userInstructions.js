@@ -7,7 +7,7 @@ const router = express.Router({ mergeParams: true });
 
 const { contactSchema } = schemasServer();
 
-router.post("/", limiter, async (req, res) => {
+router.post("/", limiter, async (req, res, next) => {
   try {
     const parsed = contactSchema.safeParse(req.body);
 
