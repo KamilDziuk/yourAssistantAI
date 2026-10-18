@@ -60,7 +60,7 @@ export async function openaiService(
 
     const dataContent = await requireOpenAI.json();
     const text = dataContent.choices?.[0]?.message?.content || "";
-    addingConversationHistory(req.body.messages, text);
+    await addingConversationHistory(messages, text);
 
     res.json(text);
 

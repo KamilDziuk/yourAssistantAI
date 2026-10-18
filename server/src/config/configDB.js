@@ -4,6 +4,10 @@ import logger from "./logger.js";
 dotenv.config();
 
 export default async function mongoDB() {
+  if (mongoose.connection.readyState === 1) {
+    return;
+  }
+
   try {
     await mongoose.connect(process.env.MONGO_URI);
     logger.info("Connected to MongoDB");

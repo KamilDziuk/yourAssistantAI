@@ -10,12 +10,13 @@ import {
 
 const router = express.Router();
 const { askSchema } = schemasServer();
-const conversationHistory = await gethistory();
-let stringData = await getAgentConfigurationData();
 
 router.post("/", limiter, async (req, res, next) => {
   try {
-    stringData = await getAgentConfigurationData();
+    const [conversationHistory, stringData] = await Promise.all([
+      gethistory(),
+      getAgentConfigurationData(),
+    ]);
 
     await openaiService(
       askSchema,
