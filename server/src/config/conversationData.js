@@ -1,5 +1,7 @@
 import mongoDB from "./configDB.js";
-import ConversationHistory from "./models/conversationHistoryModel.js";
+import ConversationHistory, {
+  HISTORY_TTL_SECONDS,
+} from "./models/conversationHistoryModel.js";
 import AgentConfigurationData from "./models/agentConfigurationData.js";
 import logger from "./logger.js";
 
@@ -21,15 +23,14 @@ export async function addingConversationHistory(
     throw err;
   }
 }
-async function deletingDataFromDatabase() {
-  await ConversationHistory.deleteMany({});
-}
 
 export async function gethistory() {
   try {
     await mongoDB();
-    const getData = await ConversationHistory.find().select("question -_id");
-    setTimeout(deletingDataFromDatabase, 100000);
+    const since = new Date(Date.now() - HISTORY_TTL_SECONDS * 1000);
+    const getData = await ConversationHistory.find({
+      createdAt: { $gte: since },
+    }).select("question -_id");
 
     const getfullData = getData.map((t) => t.question);
     const stringData = String(getfullData);
