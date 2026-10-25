@@ -26,7 +26,7 @@ export default async function agentsReponsibility(customerQuestion: string) {
     return response.data;
   } catch (err: any) {
     const status = err.response?.status;
-    const message = err.response?.data?.message;
+    const message = err.response?.data?.error;
 
     if (status === 429) {
       console.warn(" Rate limit:", message);

@@ -29,7 +29,7 @@ export function useMenuBehaviorAfterSending() {
       })
       .catch((err) => {
         const status = err.response?.status;
-        const message = err.response?.data?.message;
+        const message = err.response?.data?.error;
 
         if (status === 429) {
           console.warn("Limiter:", message);
