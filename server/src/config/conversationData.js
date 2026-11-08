@@ -17,9 +17,9 @@ export async function addingConversationHistory(
       answer: answerFromOpenAI,
     }).save();
 
-    logger.info("Correctly sending the conversation history");
+    logger.info("Conversation history saved");
   } catch (err) {
-    logger.error({ err }, "Problem to conversation history");
+    logger.error({ err }, "Failed to save conversation history");
     throw err;
   }
 }
@@ -35,10 +35,10 @@ export async function gethistory() {
     const getfullData = getData.map((t) => t.question);
     const stringData = String(getfullData);
 
-    logger.info("Correctly download the conversation history");
+    logger.info("Conversation history loaded");
     return stringData;
   } catch (err) {
-    logger.error({ err }, "Failed download the conversation history");
+    logger.error({ err }, "Failed to load conversation history");
     throw err;
   }
 }
@@ -52,9 +52,9 @@ export async function updateAgentConfigurationData(customerText) {
       { $set: { customerData: customerText } },
       { upsert: true, new: true },
     );
-    logger.info("Correctly instance change for agent");
+    logger.info("Agent configuration updated");
   } catch (err) {
-    logger.error({ err }, "Failed download the conversation history");
+    logger.error({ err }, "Failed to update agent configuration");
     throw err;
   }
 }
@@ -66,15 +66,10 @@ export async function getAgentConfigurationData() {
       await AgentConfigurationData.find().select("customerData -_id");
     const getfullData = getData.map((t) => t.customerData);
     const stringData = String(getfullData);
-    logger.info(
-      "Correctly writing data from the database using the customerData variable",
-    );
+    logger.info("Agent configuration loaded");
     return stringData;
   } catch (err) {
-    logger.error(
-      { err },
-      "Incorrectly writing data from the database after the customerData variable",
-    );
+    logger.error({ err }, "Failed to load agent configuration");
     throw err;
   }
 }
