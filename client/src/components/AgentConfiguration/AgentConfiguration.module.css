@@ -45,3 +45,27 @@
     font-size: 30px;
   }
 }
+
+.colorField {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px;
+  color: #cccccc;
+}
+
+.colorInput {
+  all: revert;
+  width: 48px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid rgb(49, 49, 49);
+  border-radius: 0.5rem;
+  background: none;
+  cursor: pointer;
+}
+
+.welcomeText {
+  height: 120px;
+  color: #cccccc;
+}

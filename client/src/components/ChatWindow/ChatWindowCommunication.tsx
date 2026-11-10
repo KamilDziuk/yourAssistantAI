@@ -1,6 +1,5 @@
-
 import chatWindowStyles from "./ChatWindow.module.css";
-
+import { DEFAULT_WELCOME_TEXT, type ChatStyle } from "./useChatStyle.ts";
 
 import type {
   ReactElement,
@@ -18,11 +17,18 @@ export default function ChatWindowCommunication(
   messages: any,
   handleSend: any,
   setShowQuickStartButton: React.Dispatch<React.SetStateAction<boolean>>,
-  writing: any
+  writing: any,
+  chatStyle: ChatStyle
 ) {
+  const welcomeText = chatStyle.chatWelcomeText || DEFAULT_WELCOME_TEXT;
+
   return (
     <>
-      <div ref={refe} className={chatWindowStyles.responseBox}>
+      <div
+        ref={refe}
+        className={chatWindowStyles.responseBox}
+        style={{ background: chatStyle.backgroundInsideChat }}
+      >
         {messages.map(
           (
             msg:
@@ -54,21 +60,19 @@ export default function ChatWindowCommunication(
 
         {!showQuickStartButton && (
           <div
-
             onClick={() => {
               setListeningClickQuickStartButton(true);
 
-              handleSend(
-                "Hi! 👋 I'm your AI assistant. I can tell you more about Kamil – his projects, experience, and creative classNameeas. Ask me about his portfolio, technologies, what I'm currently working on, or what repositories I have on GitHub. 🚀"
-              );
+              handleSend(welcomeText);
               setShowQuickStartButton(true);
             }}
             className={chatWindowStyles.quickStart}
+            style={{
+              background: chatStyle.backgroundInsideChat,
+              color: chatStyle.chatTextColor,
+            }}
           >
-            Hi! 👋 I'm your AI assistant. I can tell you more about Kamil – his
-            projects, experience, and creative classNameeas. Ask me about his
-            portfolio, technologies, what I'm currently working on, or what
-            repositories I have on GitHub. 🚀
+            {welcomeText}
           </div>
         )}
         <div className={chatWindowStyles.loadingReplies}></div>

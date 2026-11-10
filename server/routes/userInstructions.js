@@ -1,13 +1,14 @@
 import express from "express";
 import { limiter } from "../src/limiter.js";
 import { schemasServer } from "../src/schemas/schema.js";
+import requireToken from "../middleware/requireToken.js";
 import { updateAgentConfigurationData } from "../src/config/conversationData.js";
 
 const router = express.Router({ mergeParams: true });
 
 const { contactSchema } = schemasServer();
 
-router.post("/", limiter, async (req, res, next) => {
+router.post("/", limiter, requireToken, async (req, res, next) => {
   try {
     const parsed = contactSchema.safeParse(req.body);
 
@@ -18,21 +19,12 @@ router.post("/", limiter, async (req, res, next) => {
       });
     }
 
-    const { token } = req.params;
-
-    if (!process.env.SECRET_TOKEN || token !== process.env.SECRET_TOKEN) {
-      return res.status(401).json({
-        error: "Invalid request token",
-      });
-    }
-
     await updateAgentConfigurationData(parsed.data.clientGuidelines);
 
     return res.json({
       status: "ok",
     });
   } catch (err) {
-  
     next(err);
   }
 });

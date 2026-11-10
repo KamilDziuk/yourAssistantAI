@@ -5,6 +5,7 @@ import iconStyle from "../Icon/Icon.module.css";
 export function ChatWindowContnet(
   listeningClickQuickStartButton: string,
   customerQuestion: string,
+  contentQuestion: string,
   reschat: any
 ) {
   return [
@@ -16,7 +17,7 @@ export function ChatWindowContnet(
     >
       {!listeningClickQuickStartButton
         ? customerQuestion
-        : "Hi! 👋 I'm your AI assistant. I can tell you more about Kamil – his projects, experience, and creative classNameeas. Ask me about his portfolio, technologies, what I'm currently working on, or what repositories I have on GitHub. 🚀"}
+        : contentQuestion}
     </ChatWindowIcones>,
     <ChatWindowIcones
       userStyleElement={chatWindowStyles.responseText}

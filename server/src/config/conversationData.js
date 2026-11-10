@@ -3,6 +3,7 @@ import ConversationHistory, {
   HISTORY_TTL_SECONDS,
 } from "./models/conversationHistoryModel.js";
 import AgentConfigurationData from "./models/agentConfigurationData.js";
+import ChatStyle from "./models/chatStyleModel.js";
 import logger from "./logger.js";
 
 export async function addingConversationHistory(
@@ -70,6 +71,39 @@ export async function getAgentConfigurationData() {
     return stringData;
   } catch (err) {
     logger.error({ err }, "Failed to load agent configuration");
+    throw err;
+  }
+}
+
+export async function updateChatStyle(chatStyle) {
+  try {
+    await mongoDB();
+
+    await ChatStyle.findOneAndUpdate(
+      { key: "chatStyle" },
+      { $set: chatStyle },
+      { upsert: true },
+    );
+    logger.info("Chat style updated");
+  } catch (err) {
+    logger.error({ err }, "Failed to update chat style");
+    throw err;
+  }
+}
+
+export async function getChatStyle() {
+  try {
+    await mongoDB();
+
+    const chatStyle = await ChatStyle.findOne({ key: "chatStyle" })
+      .select(
+        "backgroundChat backgroundInsideChat chatTextColor chatWelcomeText -_id",
+      )
+      .lean();
+
+    return chatStyle ?? {};
+  } catch (err) {
+    logger.error({ err }, "Failed to load chat style");
     throw err;
   }
 }

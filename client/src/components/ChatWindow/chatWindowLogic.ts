@@ -34,6 +34,7 @@ export const viewQueueContent = (
   const viewQueue = ChatWindowContnet(
     listeningClickQuickStartButton,
     customerQuestion,
+    contentQuestion,
     reschat
   );
   allMessageContnet(setMessages, viewQueue);

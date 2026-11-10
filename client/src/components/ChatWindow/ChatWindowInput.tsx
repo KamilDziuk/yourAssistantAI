@@ -1,3 +1,5 @@
+import type { ChatStyle } from "./useChatStyle.ts";
+
 export default function ChatWindowInput(
   hideTextInput: any,
   setHideTextInput: any,
@@ -6,8 +8,14 @@ export default function ChatWindowInput(
   customerQuestion: any,
   listeningInputValue: any,
   setListeningClickQuickStartButton: any,
-  setCustomerQuestion: any
+  setCustomerQuestion: any,
+  chatStyle: ChatStyle
 ) {
+  const inputStyle = {
+    background: chatStyle.backgroundInsideChat,
+    color: listeningLockInputValue ? undefined : chatStyle.chatTextColor,
+  };
+
   return (
     <>
       {hideTextInput ? (
@@ -16,6 +24,7 @@ export default function ChatWindowInput(
             setHideTextInput(!hideTextInput);
           }}
           className={chatWindowStyles.askInputData}
+          style={inputStyle}
           placeholder="Enter your message..."
           required
           value={""}
@@ -28,6 +37,7 @@ export default function ChatWindowInput(
               ? chatWindowStyles.inputTextColor
               : chatWindowStyles.askInputData
           }`}
+          style={inputStyle}
           required
           placeholder="Enter your message..."
           value={customerQuestion}

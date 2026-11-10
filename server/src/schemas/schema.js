@@ -9,5 +9,14 @@ export function schemasServer() {
     clientGuidelines: z.string().trim().min(1).max(5000),
   });
 
-  return { askSchema, contactSchema };
+  const hexColor = z.string().regex(/^#[0-9a-fA-F]{6}$/);
+
+  const chatStyleSchema = z.object({
+    backgroundChat: hexColor,
+    backgroundInsideChat: hexColor,
+    chatTextColor: hexColor,
+    chatWelcomeText: z.string().trim().min(1).max(500),
+  });
+
+  return { askSchema, contactSchema, chatStyleSchema };
 }

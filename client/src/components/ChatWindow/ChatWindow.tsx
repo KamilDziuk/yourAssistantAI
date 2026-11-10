@@ -2,6 +2,7 @@ import Icon from "../Icon/Icon";
 import iconStyle from "../Icon/Icon.module.css";
 import chatWindowStyles from "./ChatWindow.module.css";
 import { useChatScroll, useChatWindow } from "./useChatWindow.ts";
+import { useChatStyle } from "./useChatStyle.ts";
 import ChatWindowCommunication from "./ChatWindowCommunication.tsx";
 import ChatWindowInput from "./ChatWindowInput.tsx";
 import ChatWindowIcones from "./ChatWindowIcones.tsx";
@@ -33,6 +34,7 @@ export default function ChatWindow() {
   ] = useChatWindow();
 
   const refe = useChatScroll(messages);
+  const chatStyle = useChatStyle();
 
   const handleSend = (contentQuestion: string) => {
     toggleTextInput(setHideTextInput, hideTextInput);
@@ -48,7 +50,10 @@ export default function ChatWindow() {
 
   return (
     <>
-      <div className={chatWindowStyles.assistantWindow}>
+      <div
+        className={chatWindowStyles.assistantWindow}
+        style={{ background: chatStyle.backgroundChat }}
+      >
         <code>v0.9.0-beta</code>
         <div className={chatWindowStyles.mainWindowText}>
           Your assistant AI
@@ -76,7 +81,8 @@ export default function ChatWindow() {
             >
               ...
             </ChatWindowIcones>
-          )
+          ),
+          chatStyle
         )}
 
         <div className={chatWindowStyles.communicationContener}>
@@ -88,7 +94,8 @@ export default function ChatWindow() {
             customerQuestion,
             listeningInputValue,
             setListeningClickQuickStartButton,
-            setCustomerQuestion
+            setCustomerQuestion,
+            chatStyle
           )}
           <button
             onClick={() => {

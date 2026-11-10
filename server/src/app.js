@@ -3,6 +3,10 @@ import helmet from "helmet";
 import cors from "cors";
 import askRoute from "../routes/ask.js";
 import userInstructionsRoute from "../routes/userInstructions.js";
+import {
+  chatStyleRouter,
+  chatStyleSettingsRouter,
+} from "../routes/chatStyle.js";
 import notFound from "../middleware/notFound.js";
 import errorHandler from "../middleware/errorHandler.js";
 
@@ -27,6 +31,8 @@ app.use(
 
 app.use("/ask", askRoute);
 app.use("/:token/userInstructions", userInstructionsRoute);
+app.use("/chatStyle", chatStyleRouter);
+app.use("/:token/chatStyle", chatStyleSettingsRouter);
 
 app.use(notFound);
 app.use(errorHandler);
