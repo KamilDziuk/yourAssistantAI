@@ -5,7 +5,9 @@
   "main": "src/app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "add-client": "node scripts/clients.js add",
+    "reset-client-token": "node scripts/clients.js reset-token"
   },
   "dependencies": {
     "cors": "^2.8.5",

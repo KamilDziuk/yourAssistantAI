@@ -39,7 +39,7 @@ export default async function resolveClient(req, res, next) {
       });
     }
 
-    req.client = client;
+    req.tenant = client;
     req.db = mongoose.connection.useDb(client.dbName, { useCache: true });
     next();
   } catch (err) {
