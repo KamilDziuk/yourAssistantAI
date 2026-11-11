@@ -19,7 +19,10 @@ router.post("/", limiter, requireToken, async (req, res, next) => {
       });
     }
 
-    await updateAgentConfigurationData(parsed.data.clientGuidelines);
+    await updateAgentConfigurationData(
+      req.db,
+      parsed.data.clientGuidelines,
+    );
 
     return res.json({
       status: "ok",

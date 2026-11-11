@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 
-const AgentConfigurationData = mongoose.model("AgentConfigurationData", {
+export const agentConfigurationDataSchema = new mongoose.Schema({
   key: String,
   customerData: String,
 });
-
-export default AgentConfigurationData;

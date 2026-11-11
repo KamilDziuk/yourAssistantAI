@@ -1,11 +1,9 @@
 import mongoose from "mongoose";
 
-const ChatStyle = mongoose.model("ChatStyle", {
+export const chatStyleSchema = new mongoose.Schema({
   key: String,
   backgroundChat: String,
   backgroundInsideChat: String,
   chatTextColor: String,
   chatWelcomeText: String,
 });
-
-export default ChatStyle;

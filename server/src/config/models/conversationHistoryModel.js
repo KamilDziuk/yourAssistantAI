@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 export const HISTORY_TTL_SECONDS = 100;
 
-const ConversationHistory = mongoose.model("ConversationHistory", {
+export const conversationHistorySchema = new mongoose.Schema({
   question: String,
   answer: String,
   createdAt: {
@@ -11,5 +11,3 @@ const ConversationHistory = mongoose.model("ConversationHistory", {
     expires: HISTORY_TTL_SECONDS,
   },
 });
-
-export default ConversationHistory;

@@ -9,11 +9,11 @@ import {
 
 const { chatStyleSchema } = schemasServer();
 
-export const chatStyleRouter = express.Router();
+export const chatStyleRouter = express.Router({ mergeParams: true });
 
 chatStyleRouter.get("/", async (req, res, next) => {
   try {
-    res.json(await getChatStyle());
+    res.json(await getChatStyle(req.db));
   } catch (err) {
     next(err);
   }
@@ -36,7 +36,7 @@ chatStyleSettingsRouter.post(
         });
       }
 
-      await updateChatStyle(parsed.data);
+      await updateChatStyle(req.db, parsed.data);
 
       return res.json({
         status: "ok",

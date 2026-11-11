@@ -7,6 +7,7 @@ import {
   chatStyleRouter,
   chatStyleSettingsRouter,
 } from "../routes/chatStyle.js";
+import resolveClient from "../middleware/resolveClient.js";
 import notFound from "../middleware/notFound.js";
 import errorHandler from "../middleware/errorHandler.js";
 
@@ -29,10 +30,15 @@ app.use(
   }),
 );
 
-app.use("/ask", askRoute);
-app.use("/:token/userInstructions", userInstructionsRoute);
-app.use("/chatStyle", chatStyleRouter);
-app.use("/:token/chatStyle", chatStyleSettingsRouter);
+const clientRouter = express.Router({ mergeParams: true });
+
+clientRouter.use("/ask", askRoute);
+clientRouter.use("/:token/userInstructions", userInstructionsRoute);
+clientRouter.use("/chatStyle", chatStyleRouter);
+clientRouter.use("/:token/chatStyle", chatStyleSettingsRouter);
+
+app.use("/c/:client", resolveClient, clientRouter);
+app.use("/", resolveClient, clientRouter);
 
 app.use(notFound);
 app.use(errorHandler);

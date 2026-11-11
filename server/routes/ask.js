@@ -8,14 +8,14 @@ import {
   getAgentConfigurationData,
 } from "../src/config/conversationData.js";
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 const { askSchema } = schemasServer();
 
 router.post("/", limiter, async (req, res, next) => {
   try {
     const [conversationHistory, stringData] = await Promise.all([
-      gethistory(),
-      getAgentConfigurationData(),
+      gethistory(req.db),
+      getAgentConfigurationData(req.db),
     ]);
 
     await openaiService(
@@ -23,11 +23,11 @@ router.post("/", limiter, async (req, res, next) => {
       req,
       res,
       conversationHistory,
-      addingConversationHistory,
+      (question, answer) =>
+        addingConversationHistory(req.db, question, answer),
       stringData,
     );
   } catch (err) {
-
     next(err);
   }
 });

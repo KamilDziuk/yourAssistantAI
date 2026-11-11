@@ -1,17 +1,16 @@
 import mongoDB from "./configDB.js";
-import ConversationHistory, {
-  HISTORY_TTL_SECONDS,
-} from "./models/conversationHistoryModel.js";
-import AgentConfigurationData from "./models/agentConfigurationData.js";
-import ChatStyle from "./models/chatStyleModel.js";
+import { getModels } from "./models/index.js";
+import { HISTORY_TTL_SECONDS } from "./models/conversationHistoryModel.js";
 import logger from "./logger.js";
 
 export async function addingConversationHistory(
+  db,
   questionFromCustomer,
   answerFromOpenAI,
 ) {
   try {
     await mongoDB();
+    const { ConversationHistory } = getModels(db);
 
     await new ConversationHistory({
       question: questionFromCustomer,
@@ -25,9 +24,10 @@ export async function addingConversationHistory(
   }
 }
 
-export async function gethistory() {
+export async function gethistory(db) {
   try {
     await mongoDB();
+    const { ConversationHistory } = getModels(db);
     const since = new Date(Date.now() - HISTORY_TTL_SECONDS * 1000);
     const getData = await ConversationHistory.find({
       createdAt: { $gte: since },
@@ -44,9 +44,10 @@ export async function gethistory() {
   }
 }
 
-export async function updateAgentConfigurationData(customerText) {
+export async function updateAgentConfigurationData(db, customerText) {
   try {
     await mongoDB();
+    const { AgentConfigurationData } = getModels(db);
 
     await AgentConfigurationData.findOneAndUpdate(
       { key: "agentConfig" },
@@ -59,9 +60,11 @@ export async function updateAgentConfigurationData(customerText) {
     throw err;
   }
 }
-export async function getAgentConfigurationData() {
+
+export async function getAgentConfigurationData(db) {
   try {
     await mongoDB();
+    const { AgentConfigurationData } = getModels(db);
 
     const getData =
       await AgentConfigurationData.find().select("customerData -_id");
@@ -75,9 +78,10 @@ export async function getAgentConfigurationData() {
   }
 }
 
-export async function updateChatStyle(chatStyle) {
+export async function updateChatStyle(db, chatStyle) {
   try {
     await mongoDB();
+    const { ChatStyle } = getModels(db);
 
     await ChatStyle.findOneAndUpdate(
       { key: "chatStyle" },
@@ -91,9 +95,10 @@ export async function updateChatStyle(chatStyle) {
   }
 }
 
-export async function getChatStyle() {
+export async function getChatStyle(db) {
   try {
     await mongoDB();
+    const { ChatStyle } = getModels(db);
 
     const chatStyle = await ChatStyle.findOne({ key: "chatStyle" })
       .select(
