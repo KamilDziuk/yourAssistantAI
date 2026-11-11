@@ -4,8 +4,8 @@
   "type": "module",
   "main": "src/app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
+    "start": "node src/dev.js",
+    "dev": "node --watch src/dev.js",
     "add-client": "node scripts/clients.js add",
     "reset-client-token": "node scripts/clients.js reset-token"
   },

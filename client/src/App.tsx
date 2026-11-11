@@ -8,6 +8,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:token/agent-configuration" element={<AgentConfiguration />} />
+        <Route path="/c/:client" element={<Home />} />
+        <Route
+          path="/c/:client/:token/agent-configuration"
+          element={<AgentConfiguration />}
+        />
       </Routes>
     </Router>
   );

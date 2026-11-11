@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import Icon from "../Icon/Icon";
 import iconStyle from "../Icon/Icon.module.css";
 import chatWindowStyles from "./ChatWindow.module.css";
@@ -34,7 +35,8 @@ export default function ChatWindow() {
   ] = useChatWindow();
 
   const refe = useChatScroll(messages);
-  const chatStyle = useChatStyle();
+  const { client: clientSlug } = useParams<{ client: string }>();
+  const { chatStyle, clientNotFound } = useChatStyle(clientSlug);
 
   const handleSend = (contentQuestion: string) => {
     toggleTextInput(setHideTextInput, hideTextInput);
@@ -44,9 +46,20 @@ export default function ChatWindow() {
       contentQuestion,
       listeningClickQuickStartButton,
       customerQuestion,
-      setMessages
+      setMessages,
+      clientSlug
     );
   };
+
+  if (clientNotFound) {
+    return (
+      <div className={chatWindowStyles.assistantWindow}>
+        <div className={chatWindowStyles.mainWindowText}>
+          This chat does not exist or is no longer available.
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>

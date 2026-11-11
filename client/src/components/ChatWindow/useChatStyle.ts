@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
-const API_URL = import.meta.env.VITE_API_URL;
+import { apiUrl } from "../../utils/apiUrl.ts";
 
 export type ChatStyle = {
   backgroundChat?: string;
@@ -13,15 +12,21 @@ export type ChatStyle = {
 export const DEFAULT_WELCOME_TEXT =
   "Hi! 👋 I'm your AI assistant. I can tell you more about Kamil – his projects, experience, and creative ideas. Ask me about his portfolio, technologies, what I'm currently working on, or what repositories I have on GitHub. 🚀";
 
-export function useChatStyle() {
+export function useChatStyle(clientSlug?: string) {
   const [chatStyle, setChatStyle] = useState<ChatStyle>({});
+  const [clientNotFound, setClientNotFound] = useState(false);
 
   useEffect(() => {
     axios
-      .get<ChatStyle>(`${API_URL}chatStyle`)
+      .get<ChatStyle>(apiUrl("chatStyle", clientSlug))
       .then((response) => setChatStyle(response.data))
-      .catch((err) => console.error("Chat style error:", err.message));
-  }, []);
+      .catch((err) => {
+        if (err.response?.status === 404) {
+          setClientNotFound(true);
+        }
+        console.error("Chat style error:", err.message);
+      });
+  }, [clientSlug]);
 
-  return chatStyle;
+  return { chatStyle, clientNotFound };
 }

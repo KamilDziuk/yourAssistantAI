@@ -1,16 +1,18 @@
 import { gitHubAbout, gitHubRepo } from "../../GitHubAPI/gitHubUser";
 import { createRequestTimeout } from "../../utils/fetchTimeout";
+import { apiUrl } from "../../utils/apiUrl";
 
 import axios from "axios";
-const API_URL = import.meta.env.VITE_API_URL;
-export default async function agentsReponsibility(customerQuestion: string) {
+export default async function agentsReponsibility(
+  customerQuestion: string,
+  clientSlug?: string,
+) {
   try {
     const { controller, timeout } = createRequestTimeout();
     const dataDecode = await gitHubAbout();
     const data = await gitHubRepo();
-    const API_URL_ASK = `${API_URL}ask`;
     const response = await axios.post(
-      API_URL_ASK,
+      apiUrl("ask", clientSlug),
       {
         messages: customerQuestion,
         gitAbout: String(dataDecode),

@@ -15,8 +15,8 @@ export const toggleTextInput = (
   hideTextInput: boolean
 ) => setHideTextInput(!hideTextInput);
 
-export const responseChat = (contentQuestion: string) => {
-  const reschat = agentsReponsibility(contentQuestion);
+export const responseChat = (contentQuestion: string, clientSlug?: string) => {
+  const reschat = agentsReponsibility(contentQuestion, clientSlug);
   return reschat;
 };
 
@@ -28,9 +28,10 @@ export const viewQueueContent = (
   contentQuestion: string,
   listeningClickQuickStartButton: string,
   customerQuestion: string ,
-  setMessages: string
+  setMessages: string,
+  clientSlug?: string
 ) => {
-  const reschat = responseChat(contentQuestion);
+  const reschat = responseChat(contentQuestion, clientSlug);
   const viewQueue = ChatWindowContnet(
     listeningClickQuickStartButton,
     customerQuestion,

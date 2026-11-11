@@ -5,8 +5,7 @@ import {
   DEFAULT_WELCOME_TEXT,
   useChatStyle,
 } from "../ChatWindow/useChatStyle.ts";
-
-const API_URL = import.meta.env.VITE_API_URL;
+import { apiUrl } from "../../utils/apiUrl.ts";
 
 const DEFAULT_CHAT_STYLE = {
   backgroundChat: "#050537",
@@ -20,8 +19,11 @@ export type ChatStyleField = keyof typeof DEFAULT_CHAT_STYLE;
 type SaveStatus = "idle" | "saved" | "error";
 
 export function useChatStyleForm() {
-  const { token } = useParams<{ token: string }>();
-  const savedChatStyle = useChatStyle();
+  const { client: clientSlug, token } = useParams<{
+    client?: string;
+    token: string;
+  }>();
+  const { chatStyle: savedChatStyle } = useChatStyle(clientSlug);
   const [chatStyle, setChatStyle] = useState(DEFAULT_CHAT_STYLE);
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("idle");
 
@@ -36,7 +38,7 @@ export function useChatStyleForm() {
   const saveChatStyle = (e: React.FormEvent) => {
     e.preventDefault();
     axios
-      .post(`${API_URL}${token}/chatStyle`, chatStyle)
+      .post(apiUrl(`${token}/chatStyle`, clientSlug), chatStyle)
       .then(() => setSaveStatus("saved"))
       .catch((err) => {
         setSaveStatus("error");
