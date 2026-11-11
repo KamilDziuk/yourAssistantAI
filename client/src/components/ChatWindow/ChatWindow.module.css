@@ -88,12 +88,13 @@ input:hover {
 
 .responseText {
   display: flex;
-  color: #a3a3a3;
+  color: var(--chat-text-color, #a3a3a3);
   text-align: left;
   padding: 1px 10px 10px 10px;
 }
 
 .question {
+  color: var(--chat-text-color, inherit);
   display: flex;
   direction: rtl;
   text-align: right;
