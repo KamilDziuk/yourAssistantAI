@@ -67,9 +67,16 @@ export default function ChatWindow() {
         className={chatWindowStyles.assistantWindow}
         style={{ background: chatStyle.backgroundChat }}
       >
-        <code>v0.9.0-beta</code>
         <div className={chatWindowStyles.mainWindowText}>
-          {chatStyle.chatTitle || DEFAULT_CHAT_TITLE}
+          {chatStyle.chatHeaderType === "logo" && chatStyle.chatLogo ? (
+            <img
+              src={chatStyle.chatLogo}
+              alt={chatStyle.chatTitle || DEFAULT_CHAT_TITLE}
+              className={chatWindowStyles.chatLogo}
+            />
+          ) : (
+            chatStyle.chatTitle || DEFAULT_CHAT_TITLE
+          )}
           <Icon
             iconStyle={`${iconStyle.cloudIcon} ${
               iconMovement && iconStyle.writingAnimation

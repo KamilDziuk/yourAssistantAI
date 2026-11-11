@@ -102,7 +102,7 @@ export async function getChatStyle(db) {
 
     const chatStyle = await ChatStyle.findOne({ key: "chatStyle" })
       .select(
-        "backgroundChat backgroundInsideChat chatTextColor chatWelcomeText chatTitle -_id",
+        "backgroundChat backgroundInsideChat chatTextColor chatWelcomeText chatTitle chatHeaderType chatLogo -_id",
       )
       .lean();
 

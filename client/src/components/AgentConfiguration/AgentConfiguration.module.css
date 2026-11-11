@@ -69,3 +69,20 @@
   height: 120px;
   color: #cccccc;
 }
+
+.headerChoice {
+  border: none;
+  margin: 10px 0;
+  padding: 0;
+  color: #cccccc;
+}
+
+.radioInput,
+.fileInput {
+  all: revert;
+  cursor: pointer;
+}
+
+.fileInput {
+  color: #cccccc;
+}

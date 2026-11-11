@@ -8,6 +8,8 @@ export type ChatStyle = {
   chatTextColor?: string;
   chatWelcomeText?: string;
   chatTitle?: string;
+  chatHeaderType?: "text" | "logo";
+  chatLogo?: string;
 };
 
 export const DEFAULT_CHAT_TITLE = "Your assistant AI";

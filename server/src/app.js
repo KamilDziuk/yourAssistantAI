@@ -21,7 +21,16 @@ app.use(
     origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(",") : true,
   }),
 );
-app.use(express.json({ limit: "10kb" }));
+const jsonBody = express.json({ limit: "10kb" });
+const chatStyleJsonBody = express.json({ limit: "200kb" });
+
+// Saving the chat style can include a small logo image, so only that
+// route accepts a larger body.
+app.use((req, res, next) =>
+  req.path.endsWith("/chatStyle")
+    ? chatStyleJsonBody(req, res, next)
+    : jsonBody(req, res, next),
+);
 
 app.use(
   express.urlencoded({

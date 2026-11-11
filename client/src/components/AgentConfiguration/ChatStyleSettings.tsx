@@ -1,17 +1,25 @@
-import { useChatStyleForm, type ChatStyleField } from "./chatStyleForm";
+import { useChatStyleForm } from "./chatStyleForm";
 import styles from "./AgentConfiguration.module.css";
+import chatWindowStyles from "../ChatWindow/ChatWindow.module.css";
 import iconStyle from "../Icon/Icon.module.css";
 import Icon from "../Icon/Icon";
 
-const colorFields: { id: ChatStyleField; label: string }[] = [
+const colorFields = [
   { id: "backgroundChat", label: "Chat background color" },
   { id: "backgroundInsideChat", label: "Background inside chat" },
   { id: "chatTextColor", label: "Chat text color" },
-];
+] as const;
 
 export default function ChatStyleSettings() {
-  const { chatStyle, updateField, saveChatStyle, saveStatus } =
-    useChatStyleForm();
+  const {
+    chatStyle,
+    updateField,
+    uploadLogo,
+    logoError,
+    saveChatStyle,
+    saveStatus,
+  } = useChatStyleForm();
+  const showLogo = chatStyle.chatHeaderType === "logo";
 
   return (
     <form className={styles.from} onSubmit={saveChatStyle}>
@@ -28,8 +36,34 @@ export default function ChatStyleSettings() {
         </label>
       ))}
 
+      <fieldset className={styles.headerChoice}>
+        <legend>Chat header</legend>
+        <label className={styles.colorField}>
+          <input
+            type="radio"
+            name="chatHeaderType"
+            className={styles.radioInput}
+            checked={!showLogo}
+            onChange={() => updateField("chatHeaderType", "text")}
+          />
+          Text
+        </label>
+        <label className={styles.colorField}>
+          <input
+            type="radio"
+            name="chatHeaderType"
+            className={styles.radioInput}
+            checked={showLogo}
+            onChange={() => updateField("chatHeaderType", "logo")}
+          />
+          Company logo
+        </label>
+      </fieldset>
+
       <label htmlFor="chatTitle" className={styles.colorField}>
-        Chat title
+        {showLogo
+          ? "Logo description (shown if the logo fails to load)"
+          : "Chat title"}
       </label>
       <input
         id="chatTitle"
@@ -38,6 +72,26 @@ export default function ChatStyleSettings() {
         value={chatStyle.chatTitle}
         onChange={(e) => updateField("chatTitle", e.target.value)}
       />
+
+      {showLogo && (
+        <div className={styles.colorField}>
+          <input
+            id="chatLogo"
+            type="file"
+            accept="image/png,image/jpeg,image/webp,image/svg+xml"
+            className={styles.fileInput}
+            onChange={(e) => uploadLogo(e.target.files?.[0])}
+          />
+          {chatStyle.chatLogo && (
+            <img
+              src={chatStyle.chatLogo}
+              alt="Logo preview"
+              className={chatWindowStyles.chatLogo}
+            />
+          )}
+        </div>
+      )}
+      {logoError && <p style={{ color: "red" }}>{logoError}</p>}
 
       <label htmlFor="chatWelcomeText" className={styles.colorField}>
         Welcome text
@@ -50,7 +104,7 @@ export default function ChatStyleSettings() {
         onChange={(e) => updateField("chatWelcomeText", e.target.value)}
       ></textarea>
 
-      <button type="submit">
+      <button type="submit" disabled={showLogo && !chatStyle.chatLogo}>
         <Icon iconStyle={iconStyle.sendAsk} iconName="fi:FiSend" />
       </button>
 

@@ -7,4 +7,6 @@ export const chatStyleSchema = new mongoose.Schema({
   chatTextColor: String,
   chatWelcomeText: String,
   chatTitle: String,
+  chatHeaderType: String,
+  chatLogo: String,
 });
