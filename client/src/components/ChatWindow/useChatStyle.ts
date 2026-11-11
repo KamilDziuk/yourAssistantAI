@@ -7,7 +7,10 @@ export type ChatStyle = {
   backgroundInsideChat?: string;
   chatTextColor?: string;
   chatWelcomeText?: string;
+  chatTitle?: string;
 };
+
+export const DEFAULT_CHAT_TITLE = "Your assistant AI";
 
 export const DEFAULT_WELCOME_TEXT =
   "Hi! 👋 I'm your AI assistant. I can tell you more about Kamil – his projects, experience, and creative ideas. Ask me about his portfolio, technologies, what I'm currently working on, or what repositories I have on GitHub. 🚀";

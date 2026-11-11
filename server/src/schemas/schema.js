@@ -16,6 +16,7 @@ export function schemasServer() {
     backgroundInsideChat: hexColor,
     chatTextColor: hexColor,
     chatWelcomeText: z.string().trim().min(1).max(500),
+    chatTitle: z.string().trim().min(1).max(60),
   });
 
   return { askSchema, contactSchema, chatStyleSchema };

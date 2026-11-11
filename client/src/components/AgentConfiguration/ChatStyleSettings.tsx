@@ -28,6 +28,17 @@ export default function ChatStyleSettings() {
         </label>
       ))}
 
+      <label htmlFor="chatTitle" className={styles.colorField}>
+        Chat title
+      </label>
+      <input
+        id="chatTitle"
+        type="text"
+        maxLength={60}
+        value={chatStyle.chatTitle}
+        onChange={(e) => updateField("chatTitle", e.target.value)}
+      />
+
       <label htmlFor="chatWelcomeText" className={styles.colorField}>
         Welcome text
       </label>

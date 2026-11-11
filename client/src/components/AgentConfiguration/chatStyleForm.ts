@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
+  DEFAULT_CHAT_TITLE,
   DEFAULT_WELCOME_TEXT,
   useChatStyle,
 } from "../ChatWindow/useChatStyle.ts";
@@ -12,6 +13,7 @@ const DEFAULT_CHAT_STYLE = {
   backgroundInsideChat: "#0d0d0d",
   chatTextColor: "#cccccc",
   chatWelcomeText: DEFAULT_WELCOME_TEXT,
+  chatTitle: DEFAULT_CHAT_TITLE,
 };
 
 export type ChatStyleField = keyof typeof DEFAULT_CHAT_STYLE;
