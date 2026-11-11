@@ -65,7 +65,12 @@ export default function ChatWindow() {
     <>
       <div
         className={chatWindowStyles.assistantWindow}
-        style={{ background: chatStyle.backgroundChat }}
+        style={
+          {
+            background: chatStyle.backgroundChat,
+            "--chat-text-color": chatStyle.chatTextColor,
+          } as React.CSSProperties
+        }
       >
         <div className={chatWindowStyles.mainWindowText}>
           {chatStyle.chatHeaderType === "logo" && chatStyle.chatLogo ? (

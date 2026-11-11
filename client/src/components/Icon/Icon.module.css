@@ -1,6 +1,6 @@
 i {
   position: relative;
-  color: rgba(255, 255, 255, 0.76);
+  color: var(--chat-text-color, rgba(255, 255, 255, 0.76));
   font-size: 26px;
   padding: 0px 5px 0px 5px;
   display: inline;
@@ -12,7 +12,7 @@ i {
   padding: 0px 10px 0px 0px;
 }
 i:hover {
-  color: rgb(255, 255, 255);
+  color: var(--chat-text-color, rgb(255, 255, 255));
 }
 .writingAnimation {
   animation: muveAvatar 1s;

@@ -27,12 +27,7 @@ export default function ChatWindowCommunication(
       <div
         ref={refe}
         className={chatWindowStyles.responseBox}
-        style={
-          {
-            background: chatStyle.backgroundInsideChat,
-            "--chat-text-color": chatStyle.chatTextColor,
-          } as React.CSSProperties
-        }
+        style={{ background: chatStyle.backgroundInsideChat }}
       >
         {messages.map(
           (
