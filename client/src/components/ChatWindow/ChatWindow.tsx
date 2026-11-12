@@ -47,7 +47,7 @@ export default function ChatWindow() {
       listeningClickQuickStartButton,
       customerQuestion,
       setMessages,
-      clientSlug
+      clientSlug,
     );
   };
 
@@ -107,7 +107,7 @@ export default function ChatWindow() {
               ...
             </ChatWindowIcones>
           ),
-          chatStyle
+          chatStyle,
         )}
 
         <div className={chatWindowStyles.communicationContener}>
@@ -120,7 +120,7 @@ export default function ChatWindow() {
             listeningInputValue,
             setListeningClickQuickStartButton,
             setCustomerQuestion,
-            chatStyle
+            chatStyle,
           )}
           <button
             onClick={() => {
@@ -137,6 +137,9 @@ export default function ChatWindow() {
             <Icon iconStyle={iconStyle.sendAsk} iconName="fi:FiSend" />
           </button>
         </div>
+        <a href="https://kamildziuk.github.io/" rel="noopener noreferrer">
+          Realization: Kamil Dziuk
+        </a>
       </div>
     </>
   );

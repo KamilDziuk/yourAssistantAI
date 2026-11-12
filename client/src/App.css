@@ -35,3 +35,17 @@ textarea {
   background: #0d0d0d;
   transition: 1.3s;
 }
+
+a {
+  font-size: 10px;
+  color: #ffffff2f;
+  padding: 10px;
+  margin: 10px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover,
+a:focus {
+  color: #ffffff93;
+}
