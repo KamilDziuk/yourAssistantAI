@@ -137,7 +137,11 @@ export default function ChatWindow() {
             <Icon iconStyle={iconStyle.sendAsk} iconName="fi:FiSend" />
           </button>
         </div>
-        <a href="https://kamildziuk.github.io/" rel="noopener noreferrer">
+        <a
+          href="https://kamildziuk.github.io/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Realization: Kamil Dziuk
         </a>
       </div>
