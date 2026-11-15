@@ -13,9 +13,9 @@ import { apiUrl } from "../../utils/apiUrl.ts";
 export type ChatStyleFormValues = Required<ChatStyle>;
 
 const DEFAULT_CHAT_STYLE: ChatStyleFormValues = {
-  backgroundChat: "#050537",
-  backgroundInsideChat: "#0d0d0d",
-  chatTextColor: "#cccccc",
+  backgroundChat: "#05053700",
+  backgroundInsideChat: "#0d0d0d00",
+  chatTextColor: "#cccccc00",
   chatWelcomeText: DEFAULT_WELCOME_TEXT,
   chatTitle: DEFAULT_CHAT_TITLE,
   chatHeaderType: "text",
