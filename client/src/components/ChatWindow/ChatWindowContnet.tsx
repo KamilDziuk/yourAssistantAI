@@ -6,7 +6,7 @@ export function ChatWindowContnet(
   listeningClickQuickStartButton: string,
   customerQuestion: string,
   contentQuestion: string,
-  reschat: any
+  reschat: any,
 ) {
   return [
     <ChatWindowIcones
@@ -15,9 +15,7 @@ export function ChatWindowContnet(
       iconStyleElement={`${iconStyle.icon} ${iconStyle.muveAvatarEfect} `}
       iconName={"lu:LuUserRound"}
     >
-      {!listeningClickQuickStartButton
-        ? customerQuestion
-        : contentQuestion}
+      {!listeningClickQuickStartButton ? customerQuestion : contentQuestion}
     </ChatWindowIcones>,
     <ChatWindowIcones
       userStyleElement={chatWindowStyles.responseText}

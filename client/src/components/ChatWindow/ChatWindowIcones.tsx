@@ -4,7 +4,6 @@ import ChatWindowIcones from "./ChatWindowIcones.tsx";
 import chatWindowStyles from "./ChatWindow.module.css";
 import iconStyle from "../Icon/Icon.module.css";
 
-
 export default function ChatWindowContent({
   userStyleElement,
   iconStyleElement,
@@ -22,15 +21,15 @@ export default function ChatWindowContent({
     <div className={userStyleElement}>
       <Suspense
         fallback={
-<>
-        <ChatWindowIcones
-          userStyleElement={chatWindowStyles.responseText}
-          userTextElement={chatWindowStyles.userTextElement}
-          iconStyleElement={`${iconStyle.icon} ${iconStyle.muveAvatarEfect} `}
-          iconName={"ri:RiRobot3Line"}
-        >
-        ...
-        </ChatWindowIcones>
+          <>
+            <ChatWindowIcones
+              userStyleElement={chatWindowStyles.responseText}
+              userTextElement={chatWindowStyles.userTextElement}
+              iconStyleElement={`${iconStyle.icon} ${iconStyle.muveAvatarEfect} `}
+              iconName={"ri:RiRobot3Line"}
+            >
+              ...
+            </ChatWindowIcones>
           </>
         }
       >
