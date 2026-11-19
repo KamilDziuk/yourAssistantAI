@@ -38,7 +38,7 @@ input {
   padding: 10px;
   margin: 10px;
   border-radius: 1rem;
-  border: 1px solid rgb(49, 49, 49);
+  border: 1px solid var(--chat-text-color, rgb(49, 49, 49));
   /* background: #0d0d0d; */
   transition: 1.3s;
 }
@@ -52,7 +52,7 @@ input {
 }
 
 input:hover {
-  /* border: 1px solid rgb(255, 255, 255); */
+  border: 1px solid var(--chat-text-color, rgb(49, 49, 49));
   transition: 1.3s;
 }
 
@@ -66,7 +66,7 @@ input:hover {
   overflow-y: auto;
   left: 50%;
   transform: translateX(-50%);
-  border: 1px solid rgba(49, 49, 49, 0.938);
+  border: 1px solid var(--chat-text-color, rgb(49, 49, 49));
   /* background: #0d0d0d; */
   scroll-behavior: smooth;
 }
@@ -88,13 +88,13 @@ input:hover {
 
 .responseText {
   display: flex;
-  color: var(--chat-text-color, #a3a3a3);
+  color: var(--chat-text-color, rgb(49, 49, 49));
   text-align: left;
   padding: 1px 10px 10px 10px;
 }
 
 .question {
-  color: var(--chat-text-color, inherit);
+  color: var(--chat-text-color, rgb(49, 49, 49));
   display: flex;
   direction: rtl;
   text-align: right;
@@ -114,7 +114,6 @@ input:hover {
   border-radius: 1rem;
   text-align: left;
   border-radius: 1rem;
-  border: 1px solid rgb(49, 49, 49);
   /* background: #0d0d0d;
   color: #ccc; */
 }
